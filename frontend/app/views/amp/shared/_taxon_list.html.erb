@@ -1,0 +1,15 @@
+<ul class="list-group mb-3">
+<li class="list-group-item">
+    <a href="<%= item[:url] %>"> <span><%= item[:name] %></span></a> 
+</li> 
+<li class="list-group-item">
+    <a href="<%= item[:url] %>"> 
+        <amp-img class="cover"  src="<%= item[:image] %>" alt="<%= item[:name] %>" width="600" height="350" layout="responsive"></amp-img>
+    </a> 
+</li> 
+<% if item[:children].any? %> 
+    <% item[:children].each do |children| %> 
+    <li class="list-group-item"><a href="<%= children[:url] %>"><span><%= children[:name] %></span></a></li> 
+    <% end %> 
+<% end %>   
+</ul>

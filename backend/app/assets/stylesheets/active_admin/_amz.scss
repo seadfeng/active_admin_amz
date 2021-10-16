@@ -1,0 +1,59 @@
+@import "active_admin/components/status_tags";
+@import "active_admin/components/table"; 
+@import "active_admin/components/jstree/jstree.min"; 
+@import "active_admin/components/trix"; 
+// @import "trix/dist/trix";
+// @import "./actiontext.scss";
+.active_admin {
+    form trix-editor,.cke_chrome {
+      margin-left: 20%;
+      width: calc(80% - 17px);
+      background-color: #ffffff;
+    } 
+}
+.hidden,
+.admin_taxons #sidebar
+{
+    display: none !important;
+} 
+.admin_taxons  #active_admin_content #main_content_wrapper #main_content{
+    margin-right: 0;
+}
+.columns{
+    .action_items {
+        .action_item {
+            color: #fff;
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: none;
+            user-select: none;
+        }
+        #taxon-delete{
+            float: right;
+        }
+        margin-bottom: 10px;
+
+    }
+    .taxonomy-tree {
+        min-width: 20%;
+        min-height: 600px;
+    }
+    .taxon-form {
+        float: right;
+        width: 80%;
+        fieldset {
+            border: none;
+        }
+    }
+}
+.admin_taxons #index_footer { 
+    display: none;
+}

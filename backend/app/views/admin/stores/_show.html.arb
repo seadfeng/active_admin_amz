@@ -1,0 +1,9 @@
+panel t('active_admin.details', model: resource_class.to_s.titleize) do
+    attributes_table_for resource do
+        row :name    
+        row :code 
+        row :locale
+        row :meta_title
+        row :meta_description 
+    end 
+end 

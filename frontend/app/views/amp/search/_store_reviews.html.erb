@@ -1,0 +1,6 @@
+ <div class="grid-card col4"> 
+    <div class="inner flex-column">
+        <a href="<%= seo_url(item) %>" class="amp-image"  aria-label="<%= item.name %>"><%= product_image(item, alt: item.name ) %></a>  
+        <h3><a href="<%= seo_url(item) %>"><%== (@excerpter.nil? ? item.seo_name : (@excerpter.excerpt! item.seo_name ))  %></a></h3> 
+    </div>
+</div> 

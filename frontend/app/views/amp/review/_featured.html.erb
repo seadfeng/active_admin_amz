@@ -1,0 +1,31 @@
+<% content_for :sidebar do  %>  
+<ul class="nav-list level-1">  
+    <li class="nav-item level-1">
+        <span class="nav-link"><%= t('amz.store_review.related_reviews') %></span> 
+        <ul class="nav-list level-2"> 
+            <li class="nav-item level-2">
+                <a class="nav-link" href="#related-reviews" on="tap:related-reviews.scrollTo"><%= t('amz.store_review.related_reviews_you_might_like', default: 'Related Reviews You Might Like') %></a> 
+            </li> 
+        </ul> 
+    </li>
+</ul>
+<% end %>
+
+<h2 class="related-reviews-title b-bottom" id="related-reviews"><%= t('amz.store_review.related_reviews_you_might_like', default: 'Related Reviews You Might Like') %></h2> 
+ 
+<div  class="grid"> 
+    <% featured_list.each do |item| %> 
+        <% cache ['featured_list_amp_v1',item ] do %>  
+        <div class="grid-card col4"> 
+            <div class="inner flex-column figure">
+                <a aria-label="<%= item.name %>" title="<%= item.seo_name %>" href="<%= seo_url(item) %>" class="amp-image">
+                    <%= product_image( item, alt: item.seo_name ) %>
+                    <noscript><%= product_image( item, alt: item.seo_name , amp: false ) %></noscript>
+                </a>  
+                <h3><a href="<%= seo_url(item) %>"><%= item.seo_name %></a></h3> 
+            </div> 
+        </div> 
+        <% end %>     
+    <% end %>  
+</div>
+

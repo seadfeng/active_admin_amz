@@ -1,0 +1,22 @@
+<% 
+@body_id = 'login' 
+title = I18n.t('amz.login_title', store_name: current_store.name, default: "Log in to %{store_name}" )
+%>   
+<%= render :partial => 'amz/shared/messages' %>
+<%= react_component("user_sessions/new", { 
+    title: title, 
+    authenticity_token: form_authenticity_token, 
+    store_id: current_store.id, 
+    email: I18n.t('amz.email', default: 'Email'), 
+    password:  I18n.t('amz.password', default: 'Password'),
+    remember_me: I18n.t('amz.remember_me', default: 'Remember me'),
+    log_in: I18n.t('amz.log_in', default: 'Log in'),
+    form_for:  amz_login_path,
+    signup_path: amz_signup_path,
+    sign_up: I18n.t('amz.sign_up', default: 'Sign up'),
+    recover_password_path: amz_recover_password_path,
+    forgot_password: I18n.t('amz.forgot_password', default: 'Forgot your password?'),
+    required: I18n.t('amz.required', default: 'Required.'),
+    must_be_email: I18n.t('amz.must_be_email', default: 'Must be an email address.'),
+    password_characters: I18n.t('amz.password_characters', default: 'Password must be at least 6 characters.'),
+    }  , {prerender: true}) %> 

@@ -1,0 +1,70 @@
+
+panel t('active_admin.details', model: resource_class.to_s.titleize) do
+    attributes_table_for resource do
+        row :name   
+        row :amazon_name do |product|  
+            auto_link product.amazon if product.amazon
+        end 
+        row :ebay_name do |product|  
+            auto_link product.ebay if product.ebay
+        end 
+        row :store_reviews   
+        row :brand_name
+        row :asin  
+        row :image do |product|
+            product_image(product)
+        end
+        row :locked 
+        row :scanned 
+        row :amazon_reviews_scanned 
+        tag_row :state 
+        row :available?
+        row :available_on 
+        row :discontinue_on 
+        row :created_at 
+        row :updated_at 
+    end
+end 
+
+releases = product.releases.limit(20)
+if  releases.any?
+    panel t('active_admin.product_releases') do
+        table_for releases do  
+            column :name do |obj|
+                obj.name
+            end
+            column :release do |obj|
+                obj.value 
+            end
+        end
+    end
+end
+
+amazon_releases = product.amazon.releases.limit(20)
+if  amazon_releases.any?
+    panel t('active_admin.amazonz_releases') do
+        table_for amazon_releases do  
+            column :name do |obj|
+                obj.name
+            end
+            column :image do |obj|
+                img src: "https://m.media-amazon.com/images/I/#{obj.image}._SL48_.jpg"
+            end
+            column :release do |obj|
+                obj.value 
+            end
+        end
+    end
+end
+
+if resource.asin_image 
+    if resource.store.locale.code == 'es-ES'
+        render partial: 'amazon_eu_widgets'
+    else
+        panel  t('active_admin.view' ) do
+            render partial: 'amazon_widgets'
+        end
+    end 
+end
+
+active_admin_comments_for(product)

@@ -1,0 +1,17 @@
+  
+<% @body_id = 'home-page' %>   
+<%= cache [@body_id, @controller_widgets] do%>
+    <%# render partial: 'amz/home/widget', collection: @controller_widgets , as: :item, cache: true %>  
+    <%= render partial: 'amz/home/widget', collection: @controller_widgets , as: :item  %>   
+<% end %> 
+<div id="last_post" class="mb-3 featured">
+         <h2 class="h3"><%= t('amz.views.last_post', default: "Last Post") %></h2>
+        <%= render partial: 'amz/shared/article_card', collection: @last_published , as: :item , locals: { show_description: true } %> 
+</div>
+<% content_for :header do  %>
+    <div id="sub-header" class="bg-dark text-light banner">
+        <div class="container">
+            <%= sanitize @home_sub_header %>
+        </div>
+    </div>
+<% end %>

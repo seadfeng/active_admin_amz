@@ -1,0 +1,31 @@
+active_admin_form_for [:admin, resource ]  do |f| 
+    f.inputs t("active_admin.products.form" , default: "Products")  do    
+        f.input :store 
+        f.input :name, :hint => display_name(f.object.amazon)   
+        f.input :sku   
+        if f.object.new_record? || f.object.asin_image.blank?  
+            f.input :asin, :hint => t('active_admin.products.asin.hint', default: "Must Be Right")   
+        else
+            f.input :asin, input_html: { disabled: true , readonly: true }
+        end
+        f.input :asin_image  if !f.object.new_record? && f.object.asin_image.blank?    
+        f.input :amazon_reviews_scanned  unless f.object.amazon     
+        f.input :locked        
+        f.input :ebay_epid        
+        f.input :ebay_epid_image  
+        f.input :brand_name           
+        f.input :description, :hint => t('active_admin.products.description.hint', default: raw("Demo:<br/>line1<br/>line2"))      
+        f.input :available_on, as: :date_time_picker    
+        f.input :discontinue_on, as: :date_time_picker  
+     end 
+    f.actions 
+    hr
+    if resource.asin_image 
+        if resource.native_shopping_ad?
+            render partial: "amazon_widgets"  
+        else
+            render partial: "amazon_eu_widgets"  
+        end
+        product_image(resource) 
+    end 
+ end 

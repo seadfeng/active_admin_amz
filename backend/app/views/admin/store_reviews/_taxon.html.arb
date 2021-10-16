@@ -1,0 +1,4 @@
+active_admin_form_for [:admin,  resource ] do |f|
+        f.input :taxon_ids, as: :selected_list, url: admin_store_taxons_path(f.object.store), fields: [:name, :description], display_name: :display_name, label: t('active_admin.taxons.name', default: "Taxons")  
+        f.actions   
+end

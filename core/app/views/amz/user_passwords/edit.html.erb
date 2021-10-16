@@ -1,0 +1,21 @@
+<%= render :partial => 'amz/shared/error_messages', :locals => { :target => @amz_user } %>
+<%
+ title = I18n.t('amz.change_your_password', default: "Change Your Password" )
+%>
+<%= render :partial => 'amz/shared/messages' %>
+<%=  
+    react_component("user_passwords/edit", { 
+        title: title, 
+        password:  I18n.t('amz.password', default: 'Password'),
+        reset_password_token: resource.reset_password_token,
+        authenticity_token: form_authenticity_token,
+        form_for: amz_edit_password_path,
+        login_path: amz_login_path,
+        log_in: I18n.t('amz.log_in', default: 'Log in'), 
+        submit:  I18n.t('amz.reset', default: 'Reset'),
+        required: I18n.t('amz.required', default: 'Required.'), 
+        password_match_error: I18n.t('amz.password_match_error', default: 'Passwords do not match'),
+        password_confirmation: I18n.t('amz.password_confirmation', default: 'Password confirmation'),
+        password_characters: I18n.t('amz.password_characters', default: 'Password must be at least 6 characters.')
+    }, {prerender: true}) 
+%> 

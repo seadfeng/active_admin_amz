@@ -1,0 +1,42 @@
+<div class="collapse bg-light d-block d-md-none" id="navbarToggleExternalContent">
+    <div class="p-4">
+        <%= sanitize drawer %>
+    </div>
+</div>
+<header class="header sticky-top" id="header"> 
+    <nav class="navbar navbar-dark bg-dark"> 
+        <button class="navbar-toggler d-flex d-md-none" type="button">
+            <%= svg(:nav_menu) %>
+        </button>
+
+        <% cache ['logo', @body_id, current_store] do %>
+        <div class="logo">
+            <% if @body_id == "home-page"%>
+                <h1><a class="navbar-brand" href="/"><%= mini_image(current_store.logo, alt: current_store.name ) %><strong><%= current_store.name %></strong></a></h1>
+            <% else %>
+                <a class="navbar-brand" href="/"><%= mini_image(current_store.logo , alt: current_store.name) %></a>
+            <% end %>
+        </div>
+        <% end %> 
+        <form autocomplete="off" class="form-inline my-lg-0 d-none d-md-flex" action="<%= searches_path %>" method="post"  class="collapse"  id="navbarSearch">
+            <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>">
+            <input type="hidden" name="_method" value="put" />
+            <input name="keywords" class="form-control mr-sm-2" type="search" placeholder="<%= t('amz.input.search', default: "Search")%>" aria-label="Search">
+            <button class="btn btn-outline-light search-btn" type="submit"><%=  svg(:search) %></button>
+            <ul id="searchResult" class="list-group"></ul>
+        </form> 
+         <div class="btn-search d-flex d-md-none" id="btn-search">
+              <a class="btn btn-outline-light" data-toggle="collapse" role="button" aria-expanded="false"  href="#navbarSearch"><%= svg(:search) %></a> 
+        </div>
+        <div class="links d-none d-lg-flex">
+            <%= sanitize header_links %>  
+        </div>
+        <% if Amz::Store.all.size > 1 %> 
+            <div class="flags d-none d-lg-flex">
+                <%== flags %> 
+            </div> 
+        <% end %>
+    </nav>
+    
+</header>
+<%= yield :header if content_for? :header %>

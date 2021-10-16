@@ -1,0 +1,13 @@
+active_admin_form_for [:admin, new_resource.store, new_resource ] do |f|
+    f.inputs I18n.t("active_admin.taxons.form" , default: "Taxon")  do  
+        f.input :parent_id, as: :hidden  
+        f.input :name   
+        f.input :show_in_menu 
+        f.input :permalink, input_html: { disabled: true , readonly: true }  
+        f.input :meta_title    
+        f.input :meta_description  
+        f.input :description, as: :ckeditor , input_html: { ckeditor: { height: 500 } }  
+        f.input :attachment, as: :file 
+    end
+    f.actions
+end  

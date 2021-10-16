@@ -1,0 +1,17 @@
+div class: "columns clear" do 
+    div class: "action_items" do
+        span id: "node-create-child", class: "action_item" do
+            i do
+                "Create"
+            end
+        end
+        span id: "taxon-delete", class: "action_item hide" do
+
+        end
+    end
+    div class: "taxonomy-tree column", "data-max-depth": Amz::Config.max_depth_in_categories, "data-taxon":  admin_store_taxons_path , "data-taxonomy": jstree_admin_store_taxonomies_path    do
+    end 
+    div class: "taxon-form" do
+        # render "admin/taxons/jstree_form" 
+    end 
+end 

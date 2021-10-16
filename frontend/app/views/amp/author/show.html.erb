@@ -1,0 +1,22 @@
+<% @body_id = 'author-page' %> 
+<% content_for :header do  %> 
+    <div id="sub-header" class="bg-dark"> 
+        <div class="-ii">
+            <div class="author">
+                <span class="avatar"><amp-img layout="fixed" height="200" width="200" src="<%= @author_component[:image] %>" alt="<%= @author_component[:name] %>"></amp-img></span>
+                <div class="author-info">
+                    <h1><%= @author_component[:name] %></h1>
+                    <h2><%= t('amz.author.sub_title',  default: 'Content Writer & Product Reviewer')  %></h2>
+                </div>
+            </div> 
+        </div> 
+    </div> 
+<% end %> 
+<div class="articles">
+<%= render partial: 'amp/shared/article_card', collection: @articles_map , as: :item , locals: { show_description: true } %> 
+</div>
+<% if @articles.respond_to?(:total_pages) %>
+    <div id="paginate">
+        <%= paginate @articles, theme:  'material' %>  
+    </div>
+<% end %>

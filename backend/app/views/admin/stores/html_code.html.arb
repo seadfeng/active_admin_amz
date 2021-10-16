@@ -1,0 +1,7 @@
+active_admin_form_for [:admin, resource ] do |f|     
+    f.inputs do 
+        f.input :preferred_head_code, as: :text, label: I18n.t('amz.head_code', default: "Head code before body")  
+        f.input :preferred_foot_code, as: :text,  label: I18n.t('amz.foot_code', default: "Foot code after body")    
+        f.actions  
+    end
+end  

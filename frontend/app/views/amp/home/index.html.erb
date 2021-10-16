@@ -1,0 +1,18 @@
+  
+<% @body_id = 'home-page' %>   
+ 
+<%= render partial: 'amp/home/widget', collection: @controller_widgets , as: :item  %>   
+  
+<div id="last_post" class="mb-3 featured">
+         <h2 class="b-bottom"><%= t('amz.views.last_post', default: "Last Post") %></h2>
+        <%= render partial: 'amp/shared/article_card', collection: @last_published , as: :item , locals: { show_description: true } %> 
+</div>
+<% content_for :header do  %>
+    <div id="sub-header" class="bg-dark">
+        <div class="-ii">
+            <div class="banner">
+                <%= sanitize @home_sub_header %>
+            </div>
+        </div>
+    </div>
+<% end %>

@@ -1,0 +1,74 @@
+<meta charset="utf-8">
+<meta name="amp-google-client-id-api" content="googleanalytics">
+<title><%= title %></title> 
+<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=0">
+<% if current_store.preferred_esi %>
+<esi:include src="/csrf_meta_tags.html" />
+<% else %>
+<%= csrf_meta_tags %> 
+<% end %>
+<% cache [ 'favicon_amp_v1' , current_store] do %>
+  <%= link_favicon %>
+<% end %>
+<%= csp_meta_tag %> 
+<%== meta_data_tags %>
+<%= canonical_tag(current_store.domain) %> 
+
+<%= render partial: 'amp/shared/amp_style' %>
+
+<link rel="preload" as="script" href="https://cdn.ampproject.org/v0.js">
+ 
+<script async src="https://cdn.ampproject.org/v0.js"></script>  
+<script async custom-element="amp-bind" src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"></script>
+<script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+<script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+<script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+<script async custom-element="amp-position-observer" src="https://cdn.ampproject.org/v0/amp-position-observer-0.1.js"></script>
+<script async custom-element="amp-animation" src="https://cdn.ampproject.org/v0/amp-animation-0.1.js"></script>
+<script async custom-element="amp-accordion" src="https://cdn.ampproject.org/v0/amp-accordion-0.1.js"></script>
+<script async custom-element="amp-autocomplete" src="https://cdn.ampproject.org/v0/amp-autocomplete-0.1.js"></script>
+<script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+<script async custom-element="amp-install-serviceworker" src="https://cdn.ampproject.org/v0/amp-install-serviceworker-0.1.js"></script>
+<script async custom-element="amp-auto-ads" src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js"></script>
+<%
+  logo_image_large = large_url_image(current_store.logo)
+%>
+<script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@graph": [{
+        "@type": ["Person", "Organization"],
+        "@id": "<%= origin %>/#person",  
+        "name": "<%= current_store.name %>",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "<%= logo_image_large %>"
+        },
+        "image": {
+          "@type": "ImageObject",
+          "url": "<%= logo_image_large %>"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "<%= origin %>/#website",
+        "name": "<%= current_store.name %>",
+        "url": "<%= origin %>",
+        <% if @body_id == 'home-page' %>
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "<%= "#{results_url}?keywords={query}" %>",
+          "query-input": "required name=query"
+        },
+        <% end %>
+        "publisher": {
+          "@id": "<%= origin %>#person"
+        }, 
+        "inLanguage": "<%= I18n.locale %>"
+      }
+      <%= yield :ldjson if content_for? :ldjson %> 
+      ]
+    }
+</script>
+
+<%= yield :head if content_for? :head %> 

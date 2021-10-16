@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-image" style="background-image:url(<%= item[:image] %>)" title="<%= item[:name] %>">
+        <a href="<%= item[:url] %>"><%= item[:name]%></a>
+    </div>
+    <div class="card-body">
+        <div class="card-top"><a href="<%= item[:taxon_url]%>"><%= item[:taxon]%></a></div>
+        <h3 class="card-name"><a href="<%= item[:url]%>"><%= item[:name]%></a></h3>
+        <% if show_description %>
+            <p class="card-text">
+                <%= sanitize item[:description] %>
+            </p>
+        <% end %> 
+        
+        <div class="card-footer">
+            <div class="author">
+                <% if item[:author_url] %>
+                <a href="<%= item[:author_url] %>"> 
+                    <span class="author-info">
+                        <span class="avatar"><img src="<%= item[:author_img]%>" alt="<%= item[:author]%>" /></span>
+                        <span class="author-name"><%= item[:author] %></span>
+                    </span> 
+                </a>
+                <% end %>
+                <a href="<%= item[:url] %>"><span class="published-at"><%= item[:published_at] %></span></a>  
+            </div>
+        </div>
+        
+    </div>
+</div>

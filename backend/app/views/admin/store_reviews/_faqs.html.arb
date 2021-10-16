@@ -1,0 +1,12 @@
+if resource.faqs.any? 
+    h2 "Faqs"
+    table_for resource.faqs do
+        column :id
+        column :auestion do   |faq|
+            auto_link faq 
+        end
+        column :answer do |faq|
+            raw faq.description
+        end   
+    end
+end

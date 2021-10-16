@@ -1,0 +1,40 @@
+<% content_for :head do  %>   
+    <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    <%=  render partial: 'amz/review/faq_json', collection:  @faqs , as: :item , locals:{ size: @faqs.size  } %>
+                ]
+            }  
+    </script>  
+<% end %> 
+<% content_for :sidebar do  %>  
+<ul class="nav-list level-1">  
+    <li class="nav-item level-1">
+        <span class="nav-link"><%= t('amz.faqs') %></span> 
+        <ul class="nav-list level-2">  
+            <% @faqs.each do |faq| %>
+                <li class="nav-item level-2">
+                    <a class="nav-link" href="<%= "##{faq.name.to_url}" %>"><%= faq.name %></a> 
+                </li>
+            <% end %>  
+        </ul> 
+    </li>
+</ul>
+<% end %>
+
+<h3 id="faq" class="b-bottom mb-0"><%= t('amz.faqs') %></h3>
+ 
+<amp-accordion animate>
+<% @faqs.each do |faq| %>
+    <% cache ['faq_amp', faq ] do %> 
+        <section expanded>
+            <h5 data-vars-label="Faq Trigger" data-vars-label-value="<%= faq.name %>" class="faq-title" id="<%= faq.name.to_url %>"><%= faq.name %></h5> 
+            <div class="faq-description container cms">
+                <%= sanitize amp_description(faq.description)%>   
+            </div>
+        </section>
+    <% end %> 
+<% end %> 
+</amp-accordion> 

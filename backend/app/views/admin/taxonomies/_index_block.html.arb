@@ -1,0 +1,7 @@
+div class: "columns clear" do 
+    div class: "taxonomy-tree column", "data-taxon":  admin_taxons_path , "data-taxonomy": jstree_admin_taxonomies_path   do
+    end 
+    div class: "taxon-form" do
+        # render "admin/taxons/jstree_form" 
+    end 
+end 

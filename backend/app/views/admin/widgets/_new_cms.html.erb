@@ -1,0 +1,17 @@
+<%= semantic_form_for [:admin, resource ] , builder: ActiveAdmin::FormBuilder do |f| %>   
+        <%= f.input :store_id, as: :hidden %> 
+        <%= f.input :name , as: :hidden  %>  
+        <%= f.inputs do %>
+        <%= f.input :cms_id,  as: :search_select, 
+                    url: "#{admin_cms_path}?q%5Bstore_id_eq%5D=#{resource.store_id}", 
+                    fields: [:name, :description ], 
+                    display_name: 'name', 
+                    minimum_input_length: 2 %>  
+        <%= f.input :frontend_controller_id,  as: :search_select, 
+                    url: admin_frontend_controllers_path , 
+                    fields: [:name, :presentation ], 
+                    display_name: 'presentation', 
+                    minimum_input_length: 2 %> 
+        <% end %>
+        <%= f.actions %> 
+<% end %>

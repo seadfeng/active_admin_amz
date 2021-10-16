@@ -1,0 +1,56 @@
+<footer id="footer" class="container"> 
+    <div class="footer-links">
+        <%= sanitize footer_links %> 
+         <% cache ['flags_amp', @review, @store_review ] do %>
+        <%== flags %>  
+        <% end %>
+    </div>
+    <div class="footer-policy"><%= sanitize footer_policy %></div>
+    <div class="copy-right">©<%= current_store.name %></div> 
+</footer>  
+<button aria-label="Scroll To Top" data-vars-label="Scroll To Top" id="scrollToTopButton" on="tap:header.scrollTo(duration=200)" class="scrollToTop">⌃</button>
+<% unless current_store.google_gtm_id.blank? %>
+<!-- Google Tag Manager -->
+<amp-analytics config="https://www.googletagmanager.com/amp.json?id=<%= current_store.google_gtm_id %>&gtm.url=SOURCE_URL" data-credentials="include">
+</amp-analytics>
+<% end %>
+<amp-animation id="showAnim" layout="nodisplay">
+  <script type="application/json">
+    {
+      "duration": "200ms",
+       "fill": "both",
+       "iterations": "1",
+       "direction": "alternate",
+       "animations": [
+         {
+           "selector": "#scrollToTopButton, #btn-table-of-contents",
+           "keyframes": [
+             { "opacity": "1", "visibility": "visible" }
+           ]
+         }
+       ]
+    }
+  </script>
+</amp-animation>
+<amp-animation id="hideAnim" layout="nodisplay">
+  <script type="application/json">
+    {
+     "duration": "200ms",
+       "fill": "both",
+       "iterations": "1",
+       "direction": "alternate",
+       "animations": [
+         {
+           "selector": "#scrollToTopButton, #btn-table-of-contents",
+           "keyframes": [
+             { "opacity": "0", "visibility": "hidden" }
+           ]
+         }
+       ]
+   }
+  </script>
+</amp-animation>
+<amp-install-serviceworker src="/serviceworker.js"
+  data-iframe-src="/serviceworker.html"
+  layout="nodisplay">
+</amp-install-serviceworker>

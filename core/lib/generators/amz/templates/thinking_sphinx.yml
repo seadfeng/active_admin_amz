@@ -1,0 +1,14 @@
+development:
+  min_infix_len: 2
+test:
+  min_infix_len: 2
+production:
+  bin_path: '/usr/local/bin'
+  min_infix_len: 2
+  charset_type: utf-8
+  ngram_len: 1
+  ngram_chars: U+3000..U+2FA1F
+  64bit_timestamps: true
+  absolute_paths: true
+  max_matches: 1000
+  phrase_boundary:  ., ?, !, U+2026

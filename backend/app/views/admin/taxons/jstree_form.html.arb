@@ -1,0 +1,13 @@
+active_admin_form_for [:admin, resource.store, resource ] do |f|
+    f.inputs I18n.t("active_admin.taxons.form" , default: "Taxon")  do  
+        # f.input :parent  if f.object.parent && !f.object.new_record?
+        f.input :name   
+        f.input :show_in_menu   
+        f.input :permalink 
+        f.input :meta_title    
+        f.input :meta_description  
+        f.input :description, as: :ckeditor , input_html: { ckeditor: { height: 500 } }  
+        f.input :attachment, as: :file, :hint => mini_image(f.object.image) 
+    end
+    f.actions
+end  

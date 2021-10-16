@@ -1,0 +1,55 @@
+
+<%= raw current_store.preferred_head_code %>  
+<amp-state id="searchUrl">
+    <script type="application/json">"<%= searches_path %>?keywords="</script>
+</amp-state> 
+
+<div id="marker"><amp-position-observer on="enter:hideAnim.start; exit:showAnim.start" layout="nodisplay"></amp-position-observer></div>
+<header id="header">  
+    <div class="nav bg-dark">  
+        <button aria-label="Menu Trigger" class="header-btn" data-vars-label="Menu Trigger" id="menu" on="tap:sidebar-drawer.toggle">
+             <i><span class="bar1"></span><span class="bar2"></span><span class="bar3"></span></i>
+        </button>   
+        <form target="_top" id="searchForm" class="search-box" autocomplete="off" action="<%= searches_path %>" action-xhr="<%= searches_path %>" method="get" >  
+        <amp-autocomplete 
+            min-characters="1" 
+            on="select:AMP.navigateTo(url=event.valueAsObject.url)" 
+            filter="token-prefix" 
+            filter-value="alt" 
+            src="<%= searches_path %>" 
+            [src]="searchUrl" 
+            query="keywords"  
+             
+            submit-on-enter 
+            >
+            <input   
+                aria-label="Search"
+                id="search-input" 
+                data-allow-initialization 
+                name="keywords" 
+                type="search" >
+                <% cache ['logo-amp-v2', @body_id, current_store] do %> 
+                        <% if @body_id == "home-page"%>
+                            <h1 class="navbar-brand"><a  href="/"><%= mini_image(current_store.logo, alt: current_store.name , width: 168, height: 20, layout: "fixed" ) %><strong><%= current_store.name %></strong></a></h1>
+                        <% else %>
+                            <a class="navbar-brand" href="/"><%= mini_image(current_store.logo, alt: current_store.name , width: 168, height: 20, layout: "fixed"  ) %></a>
+                        <% end %> 
+                <% end %> 
+                <button aria-label="Search Submit" data-vars-label="Search Submit" class="header-btn search-btn"><%=  svg(:search) %></button>  
+                <template type="amp-mustache"  class="results"> 
+                    <div data-value="{{alt}}" data-json="{{objToJson}}" class="result-item">
+                        <div class="search-item b-bottom">
+                            <a href="{{url}}" class="item-result"><amp-img class="layout-fixed" layout="fixed" src="{{image}}" width="80" height="80"></amp-img><span class="item-name"><b>{{{name}}}</b><i>{{title}}</i></span></a>
+                        </div>
+                    </div>
+                </template>   
+            </amp-autocomplete>
+        </form>   
+    </div>   
+</header> 
+<amp-sidebar id="sidebar-drawer" layout="nodisplay" side="left"> 
+    <nav>
+        <%= sanitize drawer %>
+    </nav>
+</amp-sidebar>
+<%= yield :header if content_for? :header %>

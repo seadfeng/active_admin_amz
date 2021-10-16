@@ -1,0 +1,27 @@
+<script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "name": "<%= name %>",
+            "author": "<%= author %>",
+            "image": "<%= image %>",
+            "mainEntityOfPage":{
+            	"@type": "WebPage",
+                "@id": "<%= page_url %>"
+            },
+            "publisher":{
+                "@type": "Organization",
+                "name": "<%= publisher %>",
+                "url": "<%= url %>",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "<%= logo %>",
+                    "caption": "<%= caption %>"
+                }
+            },
+            "headline": "<%= headline %>", 
+            "datePublished": "<%= date_published %>", 
+            "dateModified": "<%= date_modified %>", 
+            "description": "<%= raw description.gsub(/"/,'\"') %>"
+        }
+</script>

@@ -1,0 +1,31 @@
+
+<div class="carousel">
+    <% 
+        img =  item[:article].image
+        srcset = ""
+        if img
+            box = img.box("medium")   
+            x_scale  = 4.0 / 3.0 
+            box = box_scale(box, x_scale)
+            srcset = { medium: '430', large:   '600' }.map{ |sty, val|  review_media_crop_url(style: sty, review_id: item[:review].slug, scale: "4x3" ) + " #{val}w" }.join(",\r\n") 
+        else
+            box = { width: 430, height: 430 }
+        end
+    %>
+    <a href="<%= item[:url] %>"  class="img"> 
+        <amp-img class="card-image cover" srcset="<%= srcset %>" src="<%= item[:image] %>" width="<%= box[:width] %>" height="<%= box[:height] %>" alt="<%= item[:name] %>" layout="responsive"></amp-img>
+    </a>
+    
+    <div class="card-top"><a href="<%= item[:taxon_url]%>"><%= item[:taxon]%></a></div>
+    <h3 class="card-name"><a href="<%= item[:url]%>"><%= item[:name]%></a></h3> 
+    <div class="author"> 
+        <a href="<%= item[:author_url] %>"> 
+            <span class="author-info">
+                <span class="avatar"><amp-img src="<%= item[:author_img]%>" alt="<%= item[:author]%>" width="40" height="40"></amp-img></span>
+                <span class="author-name"><%= item[:author] %></span>
+            </span> 
+        </a> 
+        <a href="<%= item[:url] %>"><span class="published-at"><%= item[:published_at] %></span></a>  
+    </div> 
+</div>
+         

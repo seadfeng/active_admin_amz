@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <%= render partial: 'amz/shared/mobile/head' %>   
+  </head>
+  <body class="<%= body_class %>" id="<%= @body_id || 'default' %>"> 
+    <amp-script layout="container" src="<%= javascript_url('amp') %>"> 
+    </amp-script> 
+      <%= render partial: 'amz/shared/mobile/header' %>  
+      <%= render partial: 'amz/shared/mobile/sidebar' if content_for? :sidebar %>   
+      <div id="main-container">    
+          <%= yield %> 
+      </div>
+      <%= render partial: 'amz/shared/mobile/footer' %>
+    
+  </body>  
+  <%= render partial: 'amz/shared/mobile/after_body' %>
+</html>

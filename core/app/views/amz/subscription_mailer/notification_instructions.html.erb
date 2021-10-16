@@ -1,0 +1,12 @@
+<% if @body.nil? %>
+
+<p>You can unsubscribe via the link below:</p>
+
+<p><a href="{{unsubscribion_url}}">{{unsubscribion_url}}</a></p>
+
+
+<% else %> 
+
+    <%= sanitize @body %>
+
+<% end %>

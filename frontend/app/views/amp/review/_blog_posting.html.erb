@@ -1,0 +1,65 @@
+<%
+    if @article   
+        # media_url1 = review_media_crop_url(style: "wide", review_id: @review.slug, scale: "1x1" )
+        # media_url2 = review_media_crop_url(style: "wide", review_id: @review.slug, scale: "4x3" )
+        # media_url3 = review_media_crop_url(style: "wide", review_id: @review.slug, scale: "16x9" )
+        # media_url = "[\"#{media_url1}\",\"#{media_url2}\",\"#{media_url3}\"]"
+        media_url = review_media_crop_url(style: "wide", review_id: @review.slug, scale: "16x9" )
+        width = 1600
+        height = 900
+    else 
+        media_url = "\"#{widex2_url_image(@store_review, crop: false)}\""
+        width = 2560
+        height = 2560
+    end
+%>
+<% content_for :ldjson do  %>
+        ,
+        {
+            "@type": "ImageObject",
+            "@id": "<%= page_url %>#primaryImage",
+            "url": "<%= media_url %>",
+            "width": "<%= width %>",
+            "height": "<%= height %>"  
+        }, 
+        {
+            "@type": "WebPage",
+            "@id": "<%= page_url %>#webpage",
+            "url": "<%= page_url %>",
+            "name": "<%= name %>",
+            "datePublished": "<%= date_published %>",
+            "dateModified": "<%= date_modified %>",
+            "isPartOf": {
+                "@id": "<%= url %>/#website"
+            },
+            "primaryImageOfPage": {
+                "@id": "<%= page_url %>#primaryImage"
+            },
+            "inLanguage": "<%= I18n.locale %>"
+        },
+        { 
+            "@type": "BlogPosting",
+            "headline": "<%= headline %>",  
+            "datePublished": "<%= date_published %>", 
+            "dateModified": "<%= date_modified %>", 
+            "@id": "<%= page_url %>#richSnippet",
+            "isPartOf": {
+                "@id": "<%= page_url %>#webpage" 
+            }, 
+            "author": {
+                "@type": "Person",
+                "name": "<%= author %>"
+            },
+            "publisher":{
+                "@id": "<%= url %>#person"
+            }, 
+            "description": "<%= raw description.gsub(/"/,'\"') %>", 
+            "image": {
+			    "@id": "<%= page_url %>#primaryImage"
+		    },
+            "inLanguage": "<%= I18n.locale %>",
+            "mainEntityOfPage": {
+                "@id": "<%= page_url %>#webpage"
+            }
+        } 
+<% end %>

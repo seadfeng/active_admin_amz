@@ -1,0 +1,69 @@
+panel t('active_admin.details', model: resource_class.to_s.titleize) do
+    attributes_table_for resource do 
+        row :store
+        row :title
+        tag_row :visible?
+        row :description 
+        row :component_type 
+        row :resource_type  
+        row :disabled_at 
+        row :deleted_at 
+        row :created_at 
+        row :updated_at 
+    end
+end 
+if resource.contents.any?
+    panel t('active_admin.details', model: resource.resource_type.titleize) do
+        table_for resource.contents do
+            column :id do  |content|
+                content.resource.id
+            end
+            column :position do |content|
+                content.position
+            end
+            column :name do |content|
+                auto_link content.resource
+            end 
+            column :visible do |content|
+                if content.resource.respond_to?(:visible?)
+                    status_tag content.resource.visible?
+                else
+                    status_tag true
+                end
+            end 
+            column :ations do |content|
+                link_to I18n.t('active_admin.delete'), admin_widgets_content_path( content  ), method: :delete
+            end
+        end
+    end
+end
+if resource.widgets_controllers.any?
+    panel t('active_admin.details', model: "Controllers") do
+        table_for resource.widgets_controllers do 
+            column :id do  |widgets_controller|
+                widgets_controller.controller.id
+            end 
+            column :position do |widgets_controller|
+                widgets_controller.position
+            end
+            column :name do |widgets_controller|
+                auto_link widgets_controller.controller
+            end 
+            column :ations do |widgets_controller|
+                link_to I18n.t('active_admin.delete'), admin_widgets_controller_path( widgets_controller   ), method: :delete
+            end
+        end
+    end
+end
+panel t('active_admin.widgets.form', model: "Form") do
+    case resource.resource_type
+    when 'Article' 
+        render  "admin/widgets/new_article" 
+    when 'Block' 
+        render  "admin/widgets/new_block" 
+    when 'Cms' 
+        render  "admin/widgets/new_cms" 
+    when 'Taxon' 
+        render  "admin/widgets/new_taxon" 
+    end 
+end

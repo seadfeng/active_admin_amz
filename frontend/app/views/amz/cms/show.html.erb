@@ -1,0 +1,10 @@
+<% @body_id = 'cms-page' %> 
+<% cache ['cms', @cms] do %>
+<div class="card cms"> 
+    <div class="card-body">
+        <h1 class="h1"><%= @cms.name %></h1>
+        <%= sanitize @cms.description %>
+        <p><%= t('cms.last_updated',default: 'Last Updated: ') %> <%=  short_time(@cms.updated_at)  %></p>
+    </div> 
+</div>
+<% end %>

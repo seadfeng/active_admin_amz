@@ -1,0 +1,43 @@
+table_options = {
+    id: "index_table_#{collection_data.model_name.plural}",
+    "data-collection-path": "/admin/#{collection_data.model_name.to_s.gsub(/Amz::/,'').downcase.pluralize}" ,
+    "data-resource-path": resource_path ,
+    sortable: true,
+    class: "index_table index index_table_upload",
+    i18n: active_admin_config.resource_class,
+    paginator: true,
+    # row_class: page_presenter[:row_class]
+  }
+has_image = false
+collection_data.each do |data|
+    has_image = true if data.image
+end
+table_for collection_data, table_options do  | t |
+    column resource_selection_toggle_cell, class: 'col-selectable', sortable: false do |obj|
+        resource_selection_cell obj
+    end  
+    if has_image
+        column :image, if: proc { obj.image.blank? } do  |obj|  
+            mini_image(obj)
+        end 
+    end
+    collection_data.model_name.to_s.constantize.columns.each do |attribute|
+        column attribute.name
+    end
+    column :actions do |obj|
+        link_to t("activeadmin.edit") , eval("edit_admin_#{collection_data.model_name.to_s.gsub(/Amz::/,'').downcase.singularize}_path(obj)")  if authorized?(ActiveAdmin::Auth::UPDATE, obj) 
+    end
+end 
+
+paginator_options = {
+    params: params,
+    per_page: config.fetch(:per_page, active_admin_config.per_page),
+    entries_name:      active_admin_config.plural_resource_label(count: collection_data.count),
+    download_links:    false,
+    paginator: true,
+    pagination_total: config.fetch(:pagination_total, true),
+    entry_name:       active_admin_config.resource_label
+
+ }
+ paginated_collection collection_data, paginator_options 
+ 

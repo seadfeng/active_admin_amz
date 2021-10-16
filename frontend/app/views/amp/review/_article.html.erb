@@ -1,0 +1,50 @@
+<%
+    author = @article.user
+    article_title =  @article.title 
+    # title_to_url =  article_title.to_url
+%>
+
+<% content_for :sidebar do  %>   
+    <ul class="nav-list level-1"> 
+        <li class="nav-item level-1">
+            <span class="nav-link"><%= t('amz.store_review.buying_guides') %></span> 
+            <ul class="nav-list level-2">
+                <li class="nav-item level-2">
+                    <a class="nav-link" href="#<%= article_title.to_url %>" on="tap:<%= article_title.to_url %>.scrollTo"><%=  article_title %></a> 
+                </li> 
+            </ul> 
+        </li> 
+    </ul> 
+<% end %>
+<% cache ['article_amp_v2', @article ] do %> 
+<article id="<%= article_title.to_url %>">
+ 
+<h2 class="article-title b-bottom" id="guide"><%= article_title %></h2>  
+  
+<div class="author container">
+    <a href="<%= seo_url(author) %>" class="author-info">  
+        <span class="avatar"><amp-img src="<%= mini_url_image(author.image) %>" alt="<%= author.first_name %>" width="48" height="48"></amp-img></span>
+        <span class="author-name"><%= author.first_name %></span> 
+    </a>
+    <time class="entry-date published" datetime="<%=  meta_time(  @article.published_at )  %>"><%=  short_time( @article.published_at )  %></time>
+</div>
+<div class="article-description container cms">
+    <%= sanitize  amp_description(description_table_of_contents) %>    
+</div>  
+<div class="card-footer container b-bottom">
+    <span class="tags-links"> 
+        <%= svg :labels %> 
+        <%
+            sizes = @store_review.tags.size
+        %>
+        <% @store_review.tags.each_with_index do |tag,index| %>
+            <a href="<%= amz.tag_path(tag.name.downcase.gsub(" ","+")) %>"><%= tag.name%></a><%= "," if index != sizes - 1 %> 
+        <% end %>
+    </span>
+    <a href="<%= seo_url(@store_review )%>" rel="bookmark">
+        <time class="entry-date published" datetime="<%=  meta_time(  @article.published_at )  %>"><%=  short_time( @article.published_at )  %></time>
+    </a> 
+    
+</div>  
+</article>
+<% end %>

@@ -1,0 +1,104 @@
+<% 
+@body_id = 'review-page' 
+has_article = false
+media_url1 = nil
+if @article 
+    has_article = true  
+    slug = @review.slug
+    media_url1 = review_media_crop_url(style: "large", review_id: slug, scale: "4x3" ) 
+    media_url2 = review_media_crop_url(style: "medium", review_id: slug, scale: "4x3" )  
+end
+%> 
+<% content_for :head do  %>   
+<% unless media_url1.nil? %>
+<link rel="preload" href="<%= media_url1  %>" as="image"> 
+<% end %>
+<script async custom-element="amp-youtube" src="https://cdn.ampproject.org/v0/amp-youtube-0.1.js"></script>
+<script async custom-element="amp-video" src="https://cdn.ampproject.org/v0/amp-video-0.1.js"></script>  
+<%=  render partial: 'amp/review/blog_posting', locals: { name: @seo_title, 
+                                                          description: blog_posting_description, 
+                                                          author: @author.nil? ? current_store.name : @author[:name] , 
+                                                          publisher: current_store.name, 
+                                                          logo: large_url_image(current_store.favicon ),
+                                                          url: origin,
+                                                          page_url: seo_url( @store_review.review ),
+                                                          caption: "#{current_store.name} LOGO",
+                                                          date_published: @store_review.published_at.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+                                                          date_modified: @store_review.updated_at.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+                                                          headline: title.gsub(/<.*?>/,'')   
+                                                          }  %> 
+<% end %>
+
+<% content_for :header do  %> 
+    <div id="sub-header" class="bg-dark">
+        <div class="-ii">
+            <h1 class="page-title"> 
+                <span><%= best_10_text %></span> 
+                <span><%== title %></span>
+            </h1>
+            <%= render partial: 'amp/shared/social-share', locals:{ share_text: share_text } %>  
+        </div>
+    </div>
+<% end %> 
+
+<button aria-label="<%= I18n.t('amz.views.table_of_contents', default: "Table of contents") %>" data-vars-label="Table of Contents Trigger" role="button" tabindex="0" id="btn-table-of-contents" on="tap:sidebar-desktop.toggle">
+     <i><span class="bar1"></span><span class="bar2"></span><span class="bar3"></span></i>
+</button>
+<% unless @store_review.seo_description.blank? %>
+    <div class="page-description cms"> 
+        <% if has_article %>   
+            <%
+                box = @article.image.box("large") 
+                 
+                x_scale2 = 4.0 / 3.0 
+                box2 = box_scale(box, x_scale2)
+
+                seo_name = @store_review.seo_name 
+                srcset2 = { medium: '430', large:   '768' }.map{ |sty, val|  review_media_crop_url(style: sty, review_id: slug, scale: "4x3" ) + " #{val}w" }.join(",\r\n")
+            %>
+            <amp-img alt="<%= seo_name %>" layout="responsive" srcset="<%= srcset2 %>" class="card-img cover" src="<%= media_url2 %>" width="<%= box2[:width] %>" height="<%= box2[:height] %>" ></amp-img>
+             
+            <noscript><img alt="<%= seo_name %>" srcset="<%= srcset2 %>" class="card-img" src="<%= media_url2 %>" width="<%= box2[:width] %>" height="<%= box2[:height] %>" ></noscript>  
+        <% end %>
+        <%= sanitize amp_description(@store_review.seo_description) %>
+    </div> 
+<% end %> 
+<%= render partial: 'amp/review/products', 
+    locals:{ 
+        nav_title: nav_title,
+        more_info: more_info,
+        show_more: show_more,
+        show_less: show_less,
+        view_deal: view_deal,
+        close: close,
+        top_choice: top_choice,
+        product_highlights: product_highlights,
+        best_value_text: best_value_text,
+        block: block
+    }  
+%>  
+
+<% featured_list = featured %> 
+<% if featured_list.any?  %> 
+    <%= render partial: 'amp/review/featured', locals: { featured_list: featured_list  } %>
+<% end %>
+<% if @article && @author %> 
+    <%= render partial: 'amp/review/article', locals: { description_table_of_contents: description_table_of_contents } %>  
+<% end %> 
+<%= render partial: 'amp/shared/breadcrumbs' %>
+<% if @faqs.any? %> 
+    <%=  render partial: 'amp/review/faqs'  %>
+<% end %>
+
+<% cache ['tag_amp', @store_review ] do %>
+<% if @store_review.tags.any? %>
+    <h3 id="tags" class="b-bottom container"><%= t('amz.views.tags', default: "Tags") %></h2>
+    <ul class="tags">
+        <% @store_review.tags.each do |tag| %> 
+            <li>
+                <a class="nav-link" href="<%= amz.tag_path(tag.name.downcase.gsub(" ","+")) %>"><%= tag.name %></a> 
+            </li> 
+        <% end %> 
+    </ul> 
+<% end %>  
+<% end %>  

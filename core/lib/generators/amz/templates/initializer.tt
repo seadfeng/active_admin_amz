@@ -1,0 +1,11 @@
+Amz.configure do |config| 
+    #config.logo = "logo/amz.svg"
+    #config.reviews_per_page = 12
+    #config.title_site_name_separator = "-"
+    #config.always_put_site_name_in_title = true
+    #config.layout = 'amz/layouts/amz_application'
+    #config.amp_layout = 'amz/layouts/amz_amp_application' 
+    #config.amzn_assoc_host = "ws-na.amazon-adsystem.com"
+    #config.max_level_in_categories_menu =  1 # maximum nesting level in categories menu
+    #config.max_size_in_related_reviews =  4 # maximum nesting level in categories menu 
+end

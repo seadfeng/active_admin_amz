@@ -1,0 +1,55 @@
+ <% cache ['product_item_amp', item, @store_review ] do %>
+ <%
+    product = item.product
+    link_product = redirect(   product, rid: @store_review.id )
+    pid =  "pid#{product.id }"
+    link_name =  "#{product.name.to_url }"
+    pmid =  "pmid#{product.id }"
+    rel = "nofollow noopener noreferrer"
+ %>
+<div class="product mb-4" id="<%= link_name %>">
+<div class="card-body">  
+    <div class="info">
+        <% if item_counter == 0 %>
+            <b class="badge badge-pill badge-info best-top"><%= top_choice %></b>
+        <% elsif item.best_value %>
+            <b class="badge badge-pill badge-info best-value"><%= best_value_text %></b>
+        <% end %> 
+        <h2 id="<%= pid %>"><span class="avatar"><%= item_counter + 1 %>. </span><a data-vars-label="Click Product Name" data-vars-sku="<%= product.sku %>" href="<%= link_product %>" target="_blank" rel="<%= rel %>" title="<%= product.name %>"><%= product.name %></a></h2>
+        <a  aria-label="<%= product.name %>" title="<%= product.name %>" data-vars-label="Click Product Image" class="card-image" href="<%= link_product  %>" target="_blank" rel="<%= rel %>"  data-vars-sku="<%= product.sku %>">
+            <%= medium_image( product, alt: product.name ) %> 
+            <noscript><%= medium_image( product, alt: product.name , amp: false ) %></noscript>
+        </a>
+        <h3><%= product.brand_name %></h3> 
+        <% unless product.description.blank? %>
+            <div class="more">
+                <span tabindex="0" aria-label="<%= more_info %>" role="button" class="expand-more" data-vars-label="<%= more_info %>" data-vars-sku="<%= product.sku %>" id="<%= pmid %>-show" on="tap:<%= pmid %>.show,<%= pmid %>-hide.show,<%= pmid %>-show.hide"><%= more_info %><span class="rotated-box show_more"></span></span>
+                <span tabindex="1" aria-label="<%= close %>" role="button" class="expand-less" data-vars-label="<%= close %>" data-vars-sku="<%= product.sku %>" id="<%= pmid %>-hide" on="tap:<%= pmid %>.hide,<%= pmid %>-show.show,<%= pmid %>-hide.hide" hidden><%= close %><span class="rotated-box show_less"></span></span>
+            </div>
+        <% end %>
+    </div>
+    <div class="links">
+        <div class="score text-success"><%= item.score %></div>
+        <div class="btns">
+            <a aria-label="<%= view_deal %>" class="btn view-deal btn-success" data-vars-label="Click View Deal" data-vars-sku="<%= product.sku %>" href="<%= link_product %>" target="_blank" rel="<%= rel %>"><%= view_deal %></a>
+            <a aria-label="Add to Cart" class="btn shopping-cart" data-vars-label="Click Shopping Cart" data-vars-sku="<%= product.sku %>" href="<%= product.add_cart %>" target="_blank" rel="<%= rel %>"><span hidden>Add to Cart</span></a> 
+        </div>
+    </div> 
+</div> 
+<% unless product.description.blank? %>
+<div class="product-description" id="<%= pmid %>" hidden>  
+    <h4><%= product_highlights %></h4> 
+    <ul class="highlights m-none p-none">
+        <% product.description.split("\r\n").each do |line| %>
+            <li class="mb-1 text-success">
+                <%= line %>
+            </li>
+        <% end %>      
+    </ul>  
+    <div class="footer">
+        <a class="btn btn-success" data-vars-sku="<%= product.sku %>" href="<%= link_product %>" target="_blank" rel="<%= rel %>"><%= view_deal %></a> 
+    </div> 
+</div>
+<% end %>
+</div>
+<% end %>

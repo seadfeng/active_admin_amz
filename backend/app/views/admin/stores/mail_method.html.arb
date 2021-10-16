@@ -1,0 +1,17 @@
+active_admin_form_for [:admin, resource ] do |f|     
+    f.inputs do 
+        f.input :mail_from_address, label: I18n.t('amz.mail_from_address', default: "Mail From Address")  
+        f.input :preferred_mail_bcc, label: I18n.t('amz.mail_bcc', default: "Mail BCC")  
+        hr   
+        f.input :preferred_enable_mailer, label: I18n.t('amz.enable_mailer', default: "Enable Mailer"), as: :boolean   
+        f.input :preferred_send_per_queue, label: I18n.t('amz.send_per_queue', default: "Send Per Queue") 
+        f.input :preferred_domian_smtp, label: I18n.t('amz.domian_smtp', default: "Domian Smtp")      
+        f.input :preferred_service_smtp, label: I18n.t('amz.service_smtp', default: "Service Smtp")  
+        f.input :preferred_smtp_port, label: I18n.t('amz.smtp_port', default: "Smtp Port")  
+        f.input :preferred_smtp_auth_type, as: :select, collection:  Store::MAIL_AUTH, label: I18n.t('amz.smtp_auth_type', default: "Smtp Auth Type")   
+        f.input :preferred_secure_connection_type, as: :select, collection:  Store::SECURE_CONNECTION_TYPES, label: I18n.t('amz.secure_connection_type', default: "Secure Connection Type")  
+        f.input :preferred_smtp_username, label: I18n.t('amz.smtp_username', default: "Smtp Username")   
+        f.input :preferred_smtp_password, as: :password, label: I18n.t('amz.smtp_password,', default: "Smtp Password")  
+        f.actions  
+    end
+end  

@@ -1,0 +1,16 @@
+<% content_for :head do  %>   
+<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+<% end %>
+
+<div class="social-share">
+    <button aria-label="Social Share" class="btn rounded" type="button" data-vars-label="Share Trigger" id="btn-social-share" on="tap:amp-social-share.toggle"><%= svg :share, width: 20, height: 20 %> </button> 
+    <div class="amp-social-share" id="amp-social-share">  
+        <amp-social-share class="rounded" width="30" height="30" type="facebook" data-vars-label="Share Facebook" aria-label="Share on Facebook" data-param-app_id="<%= current_store.preferred_facebook_app_id %>"></amp-social-share>
+        <amp-social-share class="rounded" width="30" height="30" type="linkedin" data-vars-label="Share Linkedin" aria-label="Share on LinkedIn"></amp-social-share>
+        <amp-social-share class="rounded" width="30" height="30" type="pinterest"  data-vars-label="Share Pinterest" aria-label="Share on Pinterest" data-param-media="https://amp.dev/static/samples/img/amp.jpg"></amp-social-share>
+        <amp-social-share class="rounded" width="30" height="30" type="twitter" data-vars-label="Share Twitter" aria-label="Share on Twitter"></amp-social-share>
+        <amp-social-share class="rounded" width="30" height="30" type="whatsapp" data-vars-label="Share Whatsapp" aria-label="Share on WhatsApp"></amp-social-share>
+        <amp-social-share class="rounded" width="30" height="30" type="line" data-vars-label="Share Line" aria-label="Share on Line"></amp-social-share> 
+        <amp-social-share class="rounded" width="30" height="30" type="system" data-vars-label="Share System" aria-label="Share"></amp-social-share>
+    </div>
+ </div>

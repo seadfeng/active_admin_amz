@@ -1,0 +1,13 @@
+<% if @body.nil? %>
+
+<p>Welcome <%= @email %>!</p>
+
+<p>You can confirm your account email through the url below:</p>
+
+<p><%= @confirmation_url %></p>
+
+<% else %> 
+
+    <%= sanitize @body %>
+
+<% end %>

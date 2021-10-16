@@ -1,0 +1,48 @@
+<%
+    author = @article.user
+%>
+
+<% content_for :sidebar do  %> 
+    <nav id="buying-guides-sidebar">
+        <h2 class="sidebar-name"><%= t('amz.store_review.buying_guides') %></h2> 
+        <ul class="sidebar-list"> 
+            <li>
+                <a class="nav-link" data-turbolinks="false" href="<%= "##{@article.title.to_url}" %>"><%=  @article.title %></a> 
+            </li> 
+        </ul>
+    </nav>
+<% end %>
+<% content_for :sidebar_right do  %> 
+<div></div>
+<% end %>
+<div class="paper article-pager card cms"> 
+    <div class="card-body"> 
+        <h2 class="article-title" id="<%= @article.title.to_url %>"><%= @article.title %></h2>  
+        <div class="author">
+            <a href="<%= seo_url(author) %>" class="author-info">  
+                <span class="avatar"><img src="<%= mini_url_image(author.image) %>" alt="<%= author.first_name %>" /></span>
+                <span class="author-name"><%= author.first_name %></span> 
+             </a>
+        </div>
+        <div class="article-description description">
+           <%= sanitize  description_table_of_contents %>    
+        </div>  
+        <div class="card-footer">
+            <a href="<%= seo_url(@store_review )%>" rel="bookmark">
+             <time class="entry-date published" datetime="<%=  meta_time(  @article.published_at )  %>"><%=  short_time( @article.published_at )  %></time>
+             <time class="updated" datetime="<%=  meta_time( @article.updated_at  )  %>"><%= t('cms.last_updated',default: 'Last Updated: ') %><%=  short_time( @article.updated_at )  %></time> 
+            </a> 
+            <span class="tags-links">
+                <i class="material-icons">
+                label
+                </i>
+                <%
+                    sizes = @store_review.tags.size
+                %>
+                <% @store_review.tags.each_with_index do |tag,index| %>
+                    <a href="<%= amz.tag_path(tag.name.downcase.gsub(" ","+")) %>"><%= tag.name%></a><%= "," if index != sizes - 1 %> 
+                <% end %>
+           </span>
+        </div>
+    </div>
+</div>

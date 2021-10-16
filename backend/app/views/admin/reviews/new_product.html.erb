@@ -1,0 +1,15 @@
+<%= semantic_form_for [:admin, @source], builder: ActiveAdmin::FormBuilder do |f| %>
+    <%= f.inputs "" do %>  
+       <%= f.input :store %>  
+       <%= f.input :name %>  
+       <%= f.input :score %>  
+       <%= f.input :brand_name %>  
+       <%= f.input :sku %>  
+       <%= f.input :asin %>  
+       <%= f.input :ebay_epid %>  
+       <%= f.input :ebay_epid_image %>  
+       <%= f.input :amazon_reviews_scanned %>  
+       <%= f.input @id, as: :hidden %>  
+    <% end %> 
+    <%= f.actions %>
+<% end %>

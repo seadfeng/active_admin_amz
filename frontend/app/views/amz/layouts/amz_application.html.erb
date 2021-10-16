@@ -1,0 +1,22 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie ie7" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie ie8" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie ie9" lang="<%= I18n.locale %>"> <![endif]-->
+<!--[if gt IE 9]><!--><html lang="<%= I18n.locale %>"><!--<![endif]-->
+  <head data-hook="inside_head">
+    <%= render partial: 'amz/shared/head' %>   
+  </head>
+  <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body" data-spy="scroll" data-target="#sidebar" data-offset="86">  
+    <%= render partial: 'amz/shared/header' %>  
+    <%= render partial: 'amz/shared/sidebar' if content_for? :sidebar %>   
+    <div id="main-container">  
+      <%= render partial: 'amz/shared/sidebar_right' if content_for? :sidebar_right %>
+      <div class="container">  
+        <%= yield %>
+      </div> 
+    </div> 
+    <%= render partial: 'amz/shared/footer', locals: {  policy: footer_policy,  links: footer_links, copyright: current_store.name } %>
+  </body>  
+  <%= render partial: 'amz/shared/after_body' %>
+</html>

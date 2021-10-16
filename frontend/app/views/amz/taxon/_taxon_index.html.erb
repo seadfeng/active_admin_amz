@@ -1,0 +1,16 @@
+<div class="col-12 col-md-6 col-lg-4">
+    <div class="card flex-row">
+        <div class="card-image">
+        <a href="<%= seo_url(item) %>">
+        <% if item.image  %>
+          <%= product_image(item.image, alt: item.name, class: "lazy", "data-placeholder-src": asset_path("amz/lazy_loader.svg") )  %>
+        <% else %>
+            <%= product_image(item&.products&.published&.first, alt: item.name, class: "lazy", "data-placeholder-src": asset_path("amz/lazy_loader.svg"))  %>
+        <% end %> 
+        </a>
+        </div>
+        <div class="card-body">
+            <h2><a href="<%= seo_url(item) %>"><%= item.name %></a></h2>
+        </div> 
+    </div>
+</div>

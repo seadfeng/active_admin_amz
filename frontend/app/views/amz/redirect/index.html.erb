@@ -1,0 +1,28 @@
+<% unless current_store.google_gtag.blank? %>   
+    <!-- Event snippet for conversion page -->
+    <script> 
+        gtag('event', 'view_item', { 
+            items: [{
+                id: '<%= product.sku %>',
+                name: '<%= product.name %>', 
+                currency: '<%= current_store.currency.code %>', 
+            }], 
+            value: 1.0,
+            currency: '<%= current_store.currency.code %>'
+        });
+    </script> 
+<% end %> 
+<% unless current_store.preferred_google_ga.blank? %>
+    <script>
+        ga('send', 'pageview');
+        ga('send', 'event', {
+            eventCategory: '<%= category %>',
+            eventAction: '<%= action %>',
+            eventLabel: '<%= product.sku %>'
+        });
+    </script>
+<% end %> 
+<meta http-equiv="refresh" content="0;url=<%= @redirect %>">
+<p>
+<%== t('amz.redirect.info', url: @redirect , domain: @redirect.gsub(/https?:\/\/([^\/]*)?\/.*/,'\1') , default: "This page has moved to a <a href=\"%{url}\">%{domain}</a>.")%>
+</p>

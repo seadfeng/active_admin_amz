@@ -1,0 +1,18 @@
+<!doctype html>
+<html amp lang="<%= I18n.locale %>">
+  <head>
+    <%= render partial: 'amp/shared/head' %>   
+  </head>
+  <body class="<%= body_class %>" id="<%= @body_id || 'default' %>">   
+      <%= render partial: 'amp/shared/header' %>    
+      <main id="main-container" class="-ii">  
+          <%= render partial: 'amp/shared/sidebar' if content_for? :sidebar %> 
+          <div class="ap-body<%= @body_id == "cms-page" ? " cms" : ""%>">
+            <%= yield %> 
+          </div>
+          <%= render partial: 'amp/shared/sidebar_right' if content_for? :sidebar_right %> 
+      </main>
+      <%= render partial: 'amp/shared/footer' %> 
+      <%= render partial: 'amp/shared/after_body' %>
+  </body>   
+</html>

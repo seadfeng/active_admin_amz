@@ -1,0 +1,12 @@
+---
+:verbose: false
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+:concurrency:  4
+:queues:
+  - default
+  - active_storage_purge
+  - active_storage_analysis
+  - mailers
+  - amz
+  - paapi

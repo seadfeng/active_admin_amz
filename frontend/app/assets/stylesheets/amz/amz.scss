@@ -1,0 +1,36 @@
+$primary: (
+  color: #00113d,
+  dark:  darken(#00113d, 10%),
+  light: #445277,
+);
+$secondary:(
+    color: #0092ff,
+    dark:  darken(#0092ff, 10%),
+    light: lighten(#0092ff, 10%)
+);
+$success:(
+    color: #78c02b,
+    dark:  darken(#78c02b, 10%),
+    light: lighten(#78c02b, 10%)
+);
+$dark:(
+  color: #00113d,
+  dark:  darken(#00113d, 10%),
+  light: lighten(#00113d, 10%)
+);
+$link:(
+  color: #00113d,
+  dark:  darken(#00113d, 10%),
+  light: lighten(#00113d, 10%) 
+);  
+$border-radius: 4px; 
+@import 'daemonite-material/assets/scss/material';
+@import 'components/navbar';
+@import 'components/avatar';
+@import 'components/card';
+@import 'base'; 
+@import 'layout';  
+@import "flag-icon";
+@import "components/share";
+
+

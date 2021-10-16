@@ -1,0 +1,7 @@
+<%= semantic_form_for [:admin, @source], builder: ActiveAdmin::FormBuilder do |f| %>
+    <%= f.inputs "" do %>  
+       <%= f.input :name %>    
+       <%= f.input @id, as: :hidden %>  
+    <% end %> 
+    <%= f.actions %>
+<% end %>

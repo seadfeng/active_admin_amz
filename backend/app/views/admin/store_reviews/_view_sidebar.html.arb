@@ -1,0 +1,10 @@
+attributes_table_for store_review do
+    row :name do |source|
+        link_to source.seo_name, edit_admin_review_path(store_review.review)
+    end 
+    row :store   
+    row :scanned 
+    row :products do |source|
+        link_to t("active_admin.products.link_name", default: "Products"), admin_store_review_store_review_products_path(store_review)
+    end
+end

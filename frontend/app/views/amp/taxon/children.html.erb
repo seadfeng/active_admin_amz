@@ -1,0 +1,11 @@
+<% 
+    @body_id = 'taxon-page' 
+%>  
+<%= render partial: 'amz/shared/breadcrumbs' %>
+<% if @taxon.children.any? %>
+    <h1 class="page-title"><%= @taxon.name %></h1>
+    <div class="grid">
+    <%= render partial: 'amp/taxon/taxon_index', collection: @taxon.children , as: :item   %> 
+    </div>
+<% end %>
+

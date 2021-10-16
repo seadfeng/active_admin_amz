@@ -1,0 +1,50 @@
+<% content_for :head do  %>  
+        <script type="application/ld+json">
+                {
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        <%=  render partial: 'amz/review/faq_json', collection:  @faqs , as: :item , locals:{ size: @faqs.size  } %>
+                    ]
+                }  
+        </script>  
+<% end %> 
+<% content_for :sidebar do  %>  
+    <nav id="faqs-sidebar">
+        <h2 class="sidebar-name"><%= t('amz.faqs') %></h2>
+        <ul class="sidebar-list">
+            <% @faqs.each do |faq| %>
+                <li>
+                    <a class="nav-link" data-turbolinks="false" href="<%= "##{faq.name.to_url}" %>"><%= faq.name %></a> 
+                </li>
+            <% end %> 
+        </ul>
+    </nav>
+<% end %>
+
+<div class="paper faqs-pager card cms">
+    <div class="card-header">
+        <h2 class="paper-title"><%= t('amz.faqs') %></h2>
+    </div>
+    <div class="card-body">
+    <% @faqs.each do |faq| %>
+        <h3 class="faq-title" id="<%= faq.name.to_url %>"><%= faq.name %></h3> 
+        <div class="faq-description description">
+           <%= sanitize faq.description.gsub(/<img.*?style=\".*?width:\s?(\d*)px;.*?\"/, "\\& width=\"\\1\"" ).gsub(/<img.*?style=\".*?height:\s?(\d*)px;.*?\"/, "\\& height=\"\\1\"" ) %>   
+        </div>
+    <% end %> 
+        <div class="card-footer"> 
+           <span class="tags-links">
+                <i class="material-icons">
+                label
+                </i>
+                <%
+                    sizes = @store_review.tags.size
+                %>
+                <% @store_review.tags.each_with_index do |tag,index| %>
+                    <a href="<%= amz.tag_path(tag.name.downcase.gsub(" ","+")) %>"><%= tag.name%></a><%= "," if index != sizes - 1 %> 
+                <% end %>
+           </span>
+        </div>
+    </div>
+</div>

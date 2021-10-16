@@ -1,0 +1,9 @@
+<% if @body.nil? %>
+<p>Welcome <%= @email %>!</p>
+
+<p>You can go to your account through the link below:</p>
+
+<p><%= link_to I18n.t('amz.my_account', default: 'My Account'), account_url %></p>
+<% else %>
+<%= sanitize @body %>
+<% end %>

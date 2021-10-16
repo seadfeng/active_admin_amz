@@ -1,0 +1,22 @@
+<% if item[:component_type] == "ArticleCard"  %>
+     <div class="featured" class="mb-3">
+         <h2><%= item[:title] %></h2>
+        <%= render partial: 'amz/shared/article_card', collection: item[:resources] , as: :item , locals: { show_description: true } %> 
+     </div>
+<% elsif item[:component_type]  == "Tabs"  %>
+    <div id="accordion" class="mb-3">
+         <h2><%= item[:title] %></h2>
+        <%= render partial: 'amz/shared/block_card', collection: item[:resources] , as: :item   %> 
+    </div>
+<% elsif item[:component_type] == "BannerCard"  %>
+    <div id="main-card" class="mb-3"> 
+        <%= render partial: 'amz/shared/article_card', collection: item[:resources] , as: :item , locals: { show_description: false } %> 
+    </div>
+<% elsif item[:component_type]  == "PopularCategories"  %>
+    <div id="popular" class="mb-3">
+        <h2><%= item[:title] %></h2> 
+        <div class="box">
+            <%= render partial: 'amz/shared/taxon_list', collection: item[:resources] , as: :item   %>  
+        </div>
+    </div>
+<% end %>  

@@ -1,0 +1,15 @@
+<aside id="target-element-desktop" class="desktop-sidebar -tw"></aside>  
+<amp-sidebar id="sidebar-desktop" class="desktop-sidebar" layout="nodisplay" side="left"> 
+    
+    <nav toolbar="(min-width: 1024px)" toolbar-target="target-element-desktop">
+        <ul>
+        <li>
+            <div class="table-of-contents"><%=I18n.t('amz.views.table_of_contents', default: "Table of contents")%></div>
+            <input aria-label="<%=I18n.t('amz.views.table_of_contents', default: "Table of contents")%>" data-vars-label="Table of Contents Nav Trigger" class="nav-trigger" type="checkbox">
+            <div class="nav"><%= yield :sidebar %></div>
+            <i><span class="bar1"></span><span class="bar2"></span><span class="bar3"></span></i>
+        </li>
+        </ul>
+    </nav>
+    
+</amp-sidebar>

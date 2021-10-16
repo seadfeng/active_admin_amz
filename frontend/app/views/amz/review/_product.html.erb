@@ -1,0 +1,60 @@
+ <%
+    product = item.product
+    link_product = redirect(   product, rid: @store_review.id )
+    pid =  "pid#{product.id }"
+    rel = "nofollow noopener noreferrer"
+ %>
+<div class="product mb-4">
+<div class="card main"> 
+    <div class="card-body"> 
+        <div class="row">
+            <div class="col-lg-8 col-md-8 info">
+                <h3 class="h2" id="<%= product.name.to_url %>"><span class="avatar"><%= item_counter + 1 %>. </span><a href="<%= link_product %>" target="_blank" rel="<%= rel %>" data-toggle="tooltip" data-placement="top" title="<%= product.name %>"><%= product.name %></a></h3>
+                <h4 class="h3"><%= product.brand_name %></h4>
+                <% if item_counter == 0 %>
+                  <b class="badge badge-pill badge-info"><%= top_choice %></b>
+                <% elsif item.best_value %>
+                  <b class="badge badge-pill badge-info"><%= best_value_text %></b>
+                <% end %> 
+                <% unless product.description.blank? %>
+                    <div class="more">
+                        <a data-turbolinks="false" role="button" aria-expanded="false" data-sku="<%= product.sku %>" href="#<%= pid %>" class="<%= pid %>"><%= more_info %><%= svg(:expand_more) %></a>
+                        <a data-turbolinks="false" role="button" aria-expanded="false" data-sku="<%= product.sku %>" href="#<%= pid %>" class="d-none <%= pid %>"><%= close %><%= svg(:expand_less) %></a>
+                    </div>
+                <% end %>
+            </div>
+            <div class="col-lg-4 col-md-4 links">
+                <div class="score h2 text-success"><%= item.score %> <%= svg :done %></div>
+                <div class="btns">
+                    <button aria-label="<%= view_deal %>" type="button" class="btn view-deal btn-success" data-sku="<%= product.sku %>"><a href="<%= link_product %>" target="_blank" rel="<%= rel %>"><%= view_deal %></a></button>
+                    <button aria-label="Add to Cart" type="button" class="btn shopping-cart text-success" data-sku="<%= product.sku %>"><a href="<%= product.add_cart %>" target="_blank" rel="<%= rel %>"><%= svg(:shopping_cart) %></a></button>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <div class="card-image">
+        <a href="<%= link_product  %>" target="_blank" rel="<%= rel %>"><%= product_image(product, alt: product.name, class: "lazy", "data-placeholder-src": asset_path("amz/lazy_loader.svg") ) %></a>
+    </div>
+</div> 
+<% unless product.description.blank? %>
+<div class="collapse" id="<%= pid %>">
+    <div class="card description">
+        <div class="card-body"> 
+            <h4 class="h3"><%= product_highlights %></h4>
+            <a href="<%= link_product %>" target="_blank" rel="<%= rel %>">
+                <ul class="highlights">
+                    <% product.description.split("\r\n").each do |line| %>
+                        <li>
+                            <span class="text-success"><%= svg :check_circle %></span><%= line %>
+                        </li>
+                    <% end %>      
+                </ul> 
+            </a>
+            <div class="footer">
+                 <button type="button" class="btn btn-success"><a href="<%= link_product %>" target="_blank" rel="<%= rel %>"><%= view_deal %></a></button>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>
+</div>

@@ -1,0 +1,49 @@
+<% content_for :sidebar do  %> 
+
+<ul class="nav-list level-1">  
+    <li class="nav-item level-1">
+        <h2 class="nav-link"><%== nav_title %></h2> 
+        <ul class="nav-list level-2">
+            <% @store_review_products.each_with_index do |store_review_product,index| %>
+            <% pid =  "#{store_review_product.product.name.to_url}" %>
+                <li class="nav-item level-2">
+                    <a class="nav-link" on="tap:<%= pid %>.scrollTo" href="#<%= pid %>"><i><%= index + 1%>.</i><span><%= store_review_product.product.name %></span></a> 
+                </li>
+            <% end %> 
+        </ul> 
+    </li>
+</ul>
+<% end %>
+<% content_for :sidebar_right do  %> 
+    <div class="cms-block">
+        <%= sanitize review_sidebar_box %>
+    </div>
+    <% 
+        best_product = @store_review_products.first.product
+        link_product = redirect(   best_product, rid: @store_review.id ) 
+    %>
+    <div class="best-one">
+         <a class="card-image s-image-overlay-black" href="<%= link_product  %>" target="_blank" rel="nofollow noopener noreferrer" title="<%= best_product.name  %>">
+            <%= medium_image( best_product, alt: best_product.name ) %> 
+            <noscript><%= medium_image( best_product, alt: best_product.name , amp: false ) %></noscript>
+         </a>
+         <a href="<%= link_product  %>" target="_blank" rel="nofollow noopener noreferrer" title="<%= best_product.name  %>"><b><%= best_product.name %></b></a>
+    </div>
+<% end %>
+
+<div id="review-products"  class="container" data-vars-label="<%= @store_review.seo_name %>"> 
+    <%=  render partial: 'amp/review/product', collection:  @store_review_products , as: :item ,
+    locals:{ size: @store_review_products.size, 
+        nav_title: nav_title,
+        more_info: more_info,
+        show_more: show_more,
+        show_less: show_less,
+        view_deal: view_deal,
+        close: close,
+        top_choice: top_choice,
+        product_highlights: product_highlights,
+        best_value_text: best_value_text,
+        block: block
+        } %>
+</div>
+

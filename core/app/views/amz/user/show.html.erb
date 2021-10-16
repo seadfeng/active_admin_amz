@@ -1,0 +1,11 @@
+<% @body_id = 'account' %> 
+<%
+title = I18n.t('amz.my_account', default: 'My Accout') 
+%> 
+<% #render :partial => 'amz/shared/error_messages', :locals => { :target => @amz_user } %>
+<%= render :partial => 'amz/shared/messages' %>
+<%= react_component('account/show',{  
+    title: title,  
+    email: current_amz_user.email, 
+    widgets: @controller_widgets },
+    {prerender: true}) %>

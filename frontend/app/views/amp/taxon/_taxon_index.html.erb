@@ -1,0 +1,12 @@
+ <div class="grid-card col3">
+    <div class="inner flex-row">
+        <a href="<%= seo_url(item) %>" class="amp-image cover" aria-label="<%= item.name %>">
+        <% if item.image  %>
+            <%= product_image(item.image, alt: item.name )  %>
+        <% else %>
+            <%= product_image(item&.products&.published&.first, alt: item.name )  %>
+        <% end %> 
+        </a>  
+        <h2><a href="<%= seo_url(item) %>"><%= item.name %></a></h2>
+    </div> 
+</div> 

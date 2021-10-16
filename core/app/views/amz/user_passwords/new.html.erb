@@ -1,0 +1,19 @@
+<%
+    @body_id = 'password-recover' 
+    title = I18n.t('amz.password_recover', default: "Forgot your password?" )
+%>
+<% #render :partial => 'amz/shared/error_messages', :locals => { :target => @amz_user } %>
+<%= render :partial => 'amz/shared/messages' %>
+<%=  
+    react_component("user_passwords/new", { 
+        title: title, 
+        authenticity_token: form_authenticity_token,
+        form_for: amz_recover_password_path,
+        login_path: amz_login_path,
+        log_in: I18n.t('amz.log_in', default: 'Log in'),
+        email: I18n.t('amz.email', default: 'Email'),
+        submit:  I18n.t('amz.send', default: 'Send'),
+        required: I18n.t('amz.required', default: 'Required.'),
+        must_be_email: I18n.t('amz.must_be_email', default: 'Must be an email address.')
+    }, {prerender: true}) 
+%> 

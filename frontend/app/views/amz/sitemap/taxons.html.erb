@@ -1,0 +1,7 @@
+
+<%= react_component("containers/GridList", { items: @maps }  , {prerender: true}) unless @maps.nil? %>  
+<% if @taxons.respond_to?(:total_pages) %>
+    <div id="paginate">
+    <%= paginate @taxons, theme:  'material' %>  
+    </div>
+<% end %>

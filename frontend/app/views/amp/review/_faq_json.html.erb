@@ -1,0 +1,8 @@
+                {
+                    "@type": "Question", 
+                    "name": "<%= item.name.gsub(/"/,'\"') %>", 
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "<%= raw item.description.gsub(/"/,'\"') %>"
+                    }
+                }<%= size != (item_counter+1) ? "," : '' %> 

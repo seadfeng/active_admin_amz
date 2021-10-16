@@ -1,0 +1,30 @@
+en:
+  amz:
+    search:
+      sub_title: "See the Top %{number} %{name}"
+      reviews: 
+        one: "%{count} Review"
+        other: "%{count} Reviews"
+    views:
+      search_title: 
+        one: "We have found 1 result for <span>\"%{keywords}\"</span>"
+        other: "We have found %{count} results for <span>\"%{keywords}\"</span>" 
+  date:
+    formats: 
+      month: "%B %Y"
+    times:
+      month: "%B %Y"
+  activerecord:
+    errors:
+        models: 
+          taxonomies:
+            attributes:
+              store_id:
+                cannot_destroy_if_attached_to_stores_taxons: "Cannot destroy if attached to taxons stores"
+          product:
+            attributes:
+              state:
+                cannot_move_to_error_if_asin_image: "Cannot Move To Error If Has ASIN Image"
+                cannot_published_if_none_asin: "Cannot Published If Product Not Has Asin Or Asin is Error"
+                cannot_published_if_deleted: "Cannot Published If Deleted"
+                cannot_closed_if_not_enough_ten_published: "Cannot Closed If Store Review Has Not Enough 10 Products Published"

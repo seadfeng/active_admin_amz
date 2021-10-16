@@ -1,0 +1,16 @@
+<%
+product = Product.new
+product.store = resource.store 
+%>
+<%= semantic_form_for [:admin, product ] do |f| %>  
+<%  f.inputs t("active_admin.store_review_products.form" , default: "Product")  do %>
+        <input id="product_store_review_id" type="hidden" name="product[store_review_id]" value="<%= resource.id %>">
+        <%= f.input :store_id, as: :hidden %> 
+        <%= f.input :name  %> 
+        <%= f.input :sku %> 
+        <%= f.input :asin %> 
+        <%= f.input :ebay_epid %> 
+        <%= f.input :ebay_epid_image %> 
+        <%= f.actions %> 
+<% end %>   
+<% end %>

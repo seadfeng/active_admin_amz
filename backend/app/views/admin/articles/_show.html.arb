@@ -1,0 +1,16 @@
+panel t('active_admin.details', model: resource_class.to_s.titleize) do 
+    attributes_table_for resource do 
+        row :store
+        row :review
+        row :store_review
+        row :name 
+        row :image do |source|
+            product_image(source.image)
+        end
+        row :title    
+        row :published_at  
+        row :updated_at 
+        row :created_at 
+        row :description  
+    end
+end 

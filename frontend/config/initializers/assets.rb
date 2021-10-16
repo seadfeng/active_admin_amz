@@ -1,0 +1,20 @@
+Rails.application.config.assets.precompile += %w(
+    favicon.ico
+    amp.js
+    application.js
+    serviceworker.js
+    amz/application.css
+    amz/mobile/application.js
+    amz/mobile/application.css
+    amz/tablet/application.js
+    amz/tablet/application.css
+    amz/lazy_loader.svg
+    amz/star.svg
+    amz/noimage/* 
+    amz/noimage/mini.png
+    amz/noimage/design.png
+    amz/noimage/large.png
+    amz/noimage/product.png
+    amz/noimage/small.png
+    amz/noimage/thumbuail.png
+)

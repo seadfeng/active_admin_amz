@@ -1,0 +1,11 @@
+
+<%= raw current_store.preferred_foot_code %>   
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js"></script> 
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', 'data-turbolinks-suppress-warning': false, 'data-turbolinks-eval': false %>
+
+<%= render partial: 'amz/shared/analytics' %>  
+<%= yield :after_body if content_for? :after_body %>

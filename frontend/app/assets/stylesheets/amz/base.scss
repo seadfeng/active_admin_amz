@@ -1,0 +1,197 @@
+img{
+    max-width: 100%;
+    height: auto;
+} 
+@include media-breakpoint-up(md) { 
+    .navbar{
+        .logo{
+            justify-content: start;
+        }
+    } 
+}  
+@media screen  and ( max-width: 1570px) {  
+    #sidebar, #sidebar-right { 
+        display: none !important;
+    } 
+}
+@include media-breakpoint-down(md) { 
+    h1,.h1 {
+        font-size: 1.3rem;
+    } 
+    h2,.h2 {
+        font-size: 1.2rem;
+    } 
+    h3,.h3 {
+        font-size: 1.1rem;
+    } 
+    h4,.h4 {
+        font-size: 1.0rem;
+    } 
+    h5,.h5 {
+        font-size: .8rem;
+    } 
+    h6,.h6 {
+        font-size: .75rem;
+    }  
+    .article-title{
+        line-height: 1.5;
+    }
+    ul{
+        padding-left: 1.2rem;
+    }
+    .card{
+        font-size: .85rem;
+    }
+} 
+@keyframes backgroundColorPalette {
+    0% {
+        background-color: var(--primary-light); 
+    }
+    33% {
+        background-color: var(--light);
+    } 
+    66% {
+        background-color: var(--dark);
+    } 
+  }
+html{
+    scroll-behavior: smooth;
+}
+a {
+    color: var(--primary); 
+    transition: color 1000ms cubic-bezier(.0,0,.2,1) 0ms;
+    &:hover{
+        text-decoration: unset;
+    }
+}
+body {
+    color: var(--primary-light); 
+    font-family: Montserrat,Roboto,Segoe UI,Helvetica Neue,Arial,sans-serif;
+    font-weight: 400;
+}
+iframe,video{
+    max-width: 100%;
+}
+.author{
+    .author-info{
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        .avatar{
+            margin-right: 10px;
+        }
+    }
+}
+.fade{
+    transition: opacity .15s linear;
+}
+.tooltip{
+    
+    max-width: 100%;
+    width: 500px;
+    font-size: 1rem;  
+    .tooltip-inner{
+        padding: 10px 20px;
+        background-color: var(--info-light); 
+        color: var(--primary);
+        border: 1px solid var(--info-dark);
+    }
+}
+.updated:not(.published) {
+    display: none;
+}
+.btn-link{
+    color: var(--primary);
+}
+.btn {
+    box-shadow: unset;
+} 
+.row{
+    margin-left: -10px;
+    margin-right: -10px;
+}
+.col-xl, .col-xl-auto, .col-xl-12, .col-xl-11, .col-xl-10, .col-xl-9, .col-xl-8, .col-xl-7, .col-xl-6, .col-xl-5, .col-xl-4, .col-xl-3, .col-xl-2, .col-xl-1, .col-lg, .col-lg-auto, .col-lg-12, .col-lg-11, .col-lg-10, .col-lg-9, .col-lg-8, .col-lg-7, .col-lg-6, .col-lg-5, .col-lg-4, .col-lg-3, .col-lg-2, .col-lg-1, .col-md, .col-md-auto, .col-md-12, .col-md-11, .col-md-10, .col-md-9, .col-md-8, .col-md-7, .col-md-6, .col-md-5, .col-md-4, .col-md-3, .col-md-2, .col-md-1, .col-sm, .col-sm-auto, .col-sm-12, .col-sm-11, .col-sm-10, .col-sm-9, .col-sm-8, .col-sm-7, .col-sm-6, .col-sm-5, .col-sm-4, .col-sm-3, .col-sm-2, .col-sm-1, .col, .col-auto, .col-12, .col-11, .col-10, .col-9, .col-8, .col-7, .col-6, .col-5, .col-4, .col-3, .col-2, .col-1
+{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+h1,h2,h3,h4,h5,h6{
+    font-weight: 700;
+    font-family: Montserrat,Roboto,Segoe UI,Helvetica Neue,Arial,sans-serif;
+    color: var(--primary);
+}
+.h1,.h2,.h3,.h4,.h5,.h6{
+    font-weight: 700;
+    font-family: Montserrat,Roboto,Segoe UI,Helvetica Neue,Arial,sans-serif; 
+}
+button, input, optgroup, select, textarea{
+    font-family: Montserrat,Roboto,Segoe UI,Helvetica Neue,Arial,sans-serif;
+}
+.text-light{
+    h1,h2,h3,h4,h5,h6{
+        color: var(--light);
+    }
+}
+.flags {
+    position: relative;
+    .dropdown-menu{
+        min-width: unset;
+    }
+} 
+.paper{
+    margin: 20px auto;
+}
+.page-title{
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.8;
+}
+.page-description { 
+    .card-img{  
+        max-height: 260px; 
+        width: auto;
+        float: right;
+        margin: 5px auto; 
+    }
+}
+.article-title {
+    border-bottom: 1px solid var(--light);
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+#breadcrumbs{
+    display: flex;
+    .breadcrumb{
+        background-color: unset; 
+        margin-bottom: 0;
+    }
+} 
+.pagination{
+    background-color: unset;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 20px 0;
+    .page-item{
+        background-color: var(--secondary);
+        margin-right: 5px;
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+        padding: 6px 16px;
+        min-width: 64px;
+        line-height: 1.75;
+        border-radius: 4px;
+        font-size: .875rem;
+        text-transform: uppercase;
+        position: relative;
+        align-items: center;
+        display: inline-flex;
+        color: #ffffff;
+        justify-content: center;
+        font-weight: 700;
+        a{
+            color: #ffffff;
+        }
+    }
+    .active{ 
+        opacity: 0.8;
+    }
+}

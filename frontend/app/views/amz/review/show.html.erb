@@ -1,0 +1,169 @@
+<% 
+@body_id = 'review-page' 
+has_article = false
+has_article = true if @article 
+%> 
+<% content_for :head do  %>  
+<%=  render partial: 'amz/review/blog_posting', locals: { name: @seo_title, 
+                                                          description: blog_posting_description, 
+                                                          author: @author.nil? ? '' : @author[:name] , 
+                                                          image: large_url_image(@store_review.master_product), 
+                                                          publisher: current_store.name, 
+                                                          logo: large_url_image(current_store.favicon),
+                                                          url: origin,
+                                                          page_url: seo_url( @store_review.review ),
+                                                          caption: "#{current_store.name} LOGO",
+                                                          date_published: @store_review.published_at.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+                                                          date_modified: @store_review.updated_at.utc.strftime("%Y-%m-%dT%H:%M:%S+00:00"),
+                                                          headline: title.gsub(/<.*?>/,'')   
+                                                          }  %> 
+<% end %>
+
+<% content_for :header do  %>
+    <div id="sub-header" class="bg-dark text-light">
+        <div class="container">
+            <h1 class="page-title"> 
+                <span class="h2"><%= best_10_text %></span> 
+                <span class="h1"><%== title %></span>
+            </h1>
+            <%= render partial: 'amz/shared/social-share', locals:{ share_text: share_text } %>  
+        </div>
+    </div>
+<% end %> 
+
+<% unless @store_review.seo_description.blank? %>
+    <div class="page-description pager card mb-4">
+        <div class="card-body"> 
+            <% if has_article %> 
+                <%= medium_image(@article.image, alt: @store_review.seo_name , class: "card-img") %>   
+            <% end %>
+            <%= sanitize @store_review.seo_description %>
+        </div>
+    </div>
+<% end %> 
+<%= render partial: 'amz/review/products', 
+    locals:{ 
+        nav_title: nav_title,
+        more_info: more_info,
+        show_more: show_more,
+        show_less: show_less,
+        view_deal: view_deal,
+        close: close,
+        top_choice: top_choice,
+        product_highlights: product_highlights,
+        best_value_text: best_value_text,
+        block: block
+    }  
+%>  
+
+<% featured_list = featured %> 
+<% if featured_list.any?  %> 
+    <%= render partial: 'amz/review/featured', locals: { featured_list: featured_list  } %>
+<% end %>
+<% if @article && @author %> 
+    <%= render partial: 'amz/review/article', locals: { description_table_of_contents: description_table_of_contents } %>  
+<% end %> 
+<%= render partial: 'amz/shared/breadcrumbs' %>
+<% if @faqs.any? %> 
+    <%=  render partial: 'amz/review/faqs'  %>
+<% end %>
+<% content_for :sidebar do  %>  
+    <% if @store_review.tags.any? %>
+        <div id="tags-sidebar">
+            <h2 class="sidebar-name"><%= t('amz.views.tags', default: "Tags") %></h2>
+            <ul class="sidebar-list">
+                <% @store_review.tags.each do |tag| %>
+                    <li>
+                        <a class="nav-link" href="<%= amz.tag_path(tag.name.downcase.gsub(" ","+")) %>"><%= tag.name %></a> 
+                    </li>
+                <% end %> 
+            </ul>
+        </div>  
+    <% end %> 
+<% end %> 
+
+<% if @recent_articles.any? %>
+    <h2 class="recent-articles-title" id="recent-articles"><%= t('amz.store_review.recent_articles', default: 'Recent Articles') %></h2> 
+    <div class="row recent-article related-review">
+        <% @recent_articles.each do |item| %>
+            <% cache ['recent_articles',item ] do %>
+            <% item_url = "#{seo_url(item.store_review)}##{item.title.to_url}" %>
+                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                        <div class="card flex-column">
+                            <div class="card-image">
+                                <a href="<%= item_url %>"><%= product_image(item.image, alt: item.name, class: "lazy", "data-placeholder-src": asset_path("amz/lazy_loader.svg")) %></a>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="h5"><a href="<%= item_url %>"><%= item.name %></a></h3>
+                            </div> 
+                        </div>
+                </div>
+            <% end %>  
+        <% end %>  
+    </div> 
+<% end %>
+
+<% content_for :after_body do  %>  
+
+<% unless current_store.preferred_google_ga.blank? %>
+    <script> 
+        document.addEventListener("turbolinks:load", function() { 
+            var gaEnverts = [].slice.call(document.querySelectorAll(".product a[role=button]"));
+            var shoppingCarts = [].slice.call(document.querySelectorAll(".product .shopping-cart"));
+            gaEnverts.forEach(function(gaEnvert) { 
+                gaEnvert.addEventListener("click", function() {  
+                    ga('send', 'event', {
+                        eventCategory: "<%= @store_review.seo_name %>",
+                        eventAction: gaEnvert.innerText,
+                        eventLabel: gaEnvert.getAttribute("data-sku")
+                    }); 
+                })
+            }); 
+            shoppingCarts.forEach(function(cart) { 
+                cart.addEventListener("click", function() {  
+                    ga('send', 'event', {
+                        eventCategory: "<%= @store_review.seo_name %>",
+                        eventAction: "Click Shopping Cart",
+                        eventLabel: cart.getAttribute("data-sku")
+                    }); 
+                })
+            }); 
+        })
+    </script>
+<% end %>
+<% unless current_store.google_gtag.blank? %>   
+    <script> 
+        document.addEventListener("turbolinks:load", function() { 
+            var gaEnverts = [].slice.call(document.querySelectorAll(".product a[role=button]"));
+            var shoppingCarts = [].slice.call(document.querySelectorAll(".product .shopping-cart"));
+            gaEnverts.forEach(function(gaEnvert) { 
+                gaEnvert.addEventListener("click", function() {  
+                    gtag('event', 'view_item', {
+                        items: [{
+                            id: gaEnvert.getAttribute("data-sku"),
+                            name: gaEnvert.getAttribute("data-sku"),  
+                            category: "<%= @store_review.seo_name %>",
+                            list_name: gaEnvert.innerText
+                        }] 
+                    }); 
+                })
+            }); 
+
+            shoppingCarts.forEach(function(cart) { 
+                cart.addEventListener("click", function() {   
+                    gtag('event', 'add_to_cart', { 
+                        items: [{
+                            id: cart.getAttribute("data-sku"),
+                            name: cart.getAttribute("data-sku"), 
+                            currency: '<%= current_store.currency.code %>', 
+                            quantity: 1,
+                        }], 
+                        value: 1.0, 
+                        currency: '<%= current_store.currency.code %>'
+                    });
+                })
+            }); 
+        })
+    </script> 
+<% end %> 
+<% end %>

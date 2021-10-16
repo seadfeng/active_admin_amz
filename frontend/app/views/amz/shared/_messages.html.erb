@@ -1,0 +1,3 @@
+<% if flash.any? %>   
+<%= react_component("shared/Messages",  { messages: flash }, { prerender: true }) %> 
+<% end %>

@@ -1,0 +1,25 @@
+<%
+ @body_id = 'signup' 
+ title = I18n.t('amz.sign_up_title', store_name: current_store.name, default: "Get started with %{store_name}" )
+%>
+<% #render :partial => 'amz/shared/error_messages', :locals => { :target => @amz_user } %>
+<%= render :partial => 'amz/shared/messages' %>
+<%=  
+    react_component("user_registrations/new", { 
+    title: title, 
+    authenticity_token: form_authenticity_token, 
+    email: I18n.t('amz.email', default: 'Email'), 
+    password:  I18n.t('amz.password', default: 'Password'),
+    remember_me: I18n.t('amz.remember_me', default: 'Remember me'),
+    has_account: I18n.t('amz.has_account', default: 'Already have an account? Log in'),
+    subscription: I18n.t('amz.subscription', default: 'Subscription'),
+    form_for:  amz_signup_path, 
+    login_path: amz_login_path,
+    submit:  I18n.t('amz.create_account', default: 'Create Account'),
+    required: I18n.t('amz.required', default: 'Required.'),
+    must_be_email: I18n.t('amz.must_be_email', default: 'Must be an email address.'),
+    password_characters: I18n.t('amz.password_characters', default: 'Password must be at least 6 characters.'),
+    password_match_error: I18n.t('amz.password_match_error', default: 'Passwords do not match'),
+    password_confirmation: I18n.t('amz.password_confirmation', default: 'Password confirmation'),
+    }  , {prerender: true}) 
+    %> 

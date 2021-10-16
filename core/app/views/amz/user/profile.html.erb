@@ -1,0 +1,60 @@
+<% @body_id = 'profile' %> 
+<%
+title = I18n.t('amz.my_profile', default: 'My Profile')   
+new_password_text = I18n.t('amz.new_password', default: 'New Password') 
+email_address_text = I18n.t('amz.email_address', default: 'Email Address') 
+change_email_address_text = I18n.t('amz.change_email_address_text', default: 'Change Email Address') 
+change_password_text = I18n.t("amz.change_your_password_any_time", default: "Change your password any time. ") 
+change_your_password_text = I18n.t("amz.change_your_password", default: "Change your password") 
+change_text = I18n.t("amz.change", default: "Change")
+sessions_text = I18n.t("amz.sessions", default: "Sessions")
+verified_text = I18n.t("amz.verified", default: "verified")
+not_verified_text = I18n.t("amz.not_verified", default: "not verified")
+verified_text = current_amz_user.confirmed? ? verified_text : not_verified_text
+your_email_address_is_not_verified = I18n.t("amz.your_email_address_is_not_verified", default: "Your email address is not verified.")
+send_verification_email = I18n.t("amz.send_verification_email", default: "Send verification email.")
+
+required_text = I18n.t('amz.required', default: 'Required.')
+must_be_email = I18n.t('amz.must_be_email', default: 'Must be an email address.')
+password_characters = I18n.t('amz.password_characters', default: 'Password must be at least 6 characters.')
+password_match_error = I18n.t('amz.password_match_error', default: 'Passwords do not match')
+password_confirmation = I18n.t('amz.password_confirmation', default: 'Password confirmation')
+current_password = I18n.t('amz.current_password', default: 'Current Password')
+save = I18n.t('amz.save', default: 'Save')
+cancel = I18n.t('amz.cancel', default: 'cancel')
+subscription_text = I18n.t('amz.subscription', default: 'Subscription')
+subscription_info = I18n.t('amz.you_can_subscribe', default: 'You can subscribe via the button')
+unsubscription_info = I18n.t('amz.you_can_unsubscribe', default: 'You can unsubscribe via the button')
+unsubscription_text = I18n.t('amz.unsubscription', default: 'Unsubscription')
+%> 
+<%= render :partial => 'amz/shared/messages' %>
+<%= react_component('account/profile',{  
+    title: title,  
+    form_for:  amz.user_path(current_amz_user) ,
+    authenticity_token: form_authenticity_token, 
+    email: current_amz_user.email, 
+    verified: current_amz_user.confirmed?,
+    verified_text: verified_text, 
+    email_address_text: email_address_text,  
+    password_text: new_password_text,
+    change_email_address_text: change_email_address_text, 
+    change_password_text: change_password_text,
+    your_email_address_is_not_verified: your_email_address_is_not_verified,
+    send_verification_email: send_verification_email,
+    change_text: change_text,
+    sessions_text: sessions_text,
+    required_text: required_text,
+    must_be_email: must_be_email,
+    password_characters: password_characters,
+    password_match_error: password_match_error, 
+    current_password: current_password,
+    change_your_password_text: change_your_password_text,
+    save: save,
+    cancel: cancel,
+    subscription_text: subscription_text,
+    unsubscription_text: unsubscription_text,
+    subscription_info: subscription_info,
+    unsubscription_info: unsubscription_info,
+    is_subscription: current_amz_user.subscription?
+    },
+    {prerender: false}) %>

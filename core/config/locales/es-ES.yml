@@ -1,0 +1,85 @@
+es-ES:
+  views:
+    pagination:
+        first: "primero"
+        last: "Último"
+        next: "Siguiente"
+        previous: "Previo"
+  amz: 
+    redirect:
+      info: "Esta página se ha movido a <a href=\"%{url}\">%{domain}</a>."
+    store_review:
+      recent_articles: "Artículos Recientes"
+      buying_guides: "Guía" 
+      related_reviews: "Reseñas Relacionadas"
+      related_reviews_you_might_like: "Quizás te Guste"
+    taxon:
+      sitemap_title: "Mapa del sitio para categorías"
+    author:
+      title: "Los Mejores Comentarios y Artículos Por %{name} En %{year}"
+    review: 
+      sitemap_title: "Mapa del sitio para comentarios"
+      scanned: "%{scanned} Comentarios escaneados"
+      title: "Las %{number} Mejores %{keywords} %{year}"
+      page_title: "<b>%{keywords}</b> de %{datatime}"
+      meta_title: "%{meta_title} %{year}"
+      nav_title: "%{number} Mejores <b>%{keywords}</b> del Mercado %{datatime}"
+    search:
+      sub_title: "Ver Top %{number} %{name}"
+      reviews: 
+        one: "%{count} Revisión"
+        other: "%{count} Críticas"
+    views: 
+      table_of_contents: "Tabla de contenidos"
+      page: "Página"
+      last_post: "Ultima Publicación"
+      product_highlights: "Productos Destacados"
+      close: "Cerca"
+      best_top_x: "%{number} Mejores"
+      view_deal: "Ver Ofertas"
+      more_info: "Más Información"
+      show_more: "Mostrar Más"
+      show_less: "Muestra Menos"
+      most_savings: "Mejor Valor"
+      top_choice: "El Mejor Opción"
+      share: "Compartir" 
+      reviews: "Comentarios"
+      tags: "Etiquetas"
+      popularity: "Popularidad"
+      features_quality: "Características de Calidad"
+      brand_reputation: "Reputación de la Marca"
+      how_we_score: "Cómo Anotamos"
+      learn_more: "Aprende Más" 
+      search_title: 
+        one: "Hemos Encontrado 1 Resultado Para <span>\"%{keywords}\"</span>"
+        other: "Hemos Encontrado %{count} Resultados Para <span>\"%{keywords}\"</span>" 
+  date:
+    formats:
+      # Use the strftime parameters for formats.
+      # When no format has been given, it uses default.
+      # You can provide other formats here if you like!
+      default: "%Y-%m-%d"
+      short: "%b %d"
+      month: "%B %Y"
+      long: "%B %d, %Y"
+
+    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+
+    # Don't forget the nil at the beginning; there's no such thing as a 0th month
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+    # Used in date_select and datetime_select.
+    order:
+      - year
+      - month
+      - day
+
+  time:
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      short: "%B %d,%Y"
+      month: "%B %Y"
+      long: "%B %d, %Y %H:%M"
+    am: "am"
+    pm: "pm"

@@ -1,0 +1,29 @@
+<% content_for :sidebar do  %>  
+    <nav id="products-sidebar">
+        <h2 class="sidebar-name"><%== nav_title %></h2>
+        <ul class="sidebar-list nav">
+            <% @store_review_products.each_with_index do |store_review_product,index| %>
+                <li class="nav-item">
+                    <a class="nav-link" data-turbolinks="false" href="<%= "##{store_review_product.product.name.to_url}" %>"><i><%= index + 1%>.</i><span><%= store_review_product.product.name %></span></a> 
+                </li>
+            <% end %> 
+        </ol>
+    </nav>
+<% end %>
+
+<div id="review-products"  class="mb-4"> 
+    <%=  render partial: 'amz/review/product', collection:  @store_review_products , as: :item , 
+    locals:{ size: @store_review_products.size, 
+        nav_title: nav_title,
+        more_info: more_info,
+        show_more: show_more,
+        show_less: show_less,
+        view_deal: view_deal,
+        close: close,
+        top_choice: top_choice,
+        product_highlights: product_highlights,
+        best_value_text: best_value_text,
+        block: block
+        } %>
+</div>
+

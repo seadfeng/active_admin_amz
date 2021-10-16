@@ -1,0 +1,23 @@
+<% 
+@body_id = 'search-page'
+per_page = params[:per_page] || 40
+i_page = params[:page] || 1 
+if  @store_reviews.size == 0 
+    first_num = 0
+    last_num = 0
+else
+    first_num = i_page.to_i *  per_page - per_page + 1
+    last_num = first_num + @store_reviews.size - 1
+end 
+keywords = params[:keywords]  
+title = t("amz.views.search_title", count: @searcher.total_found.to_s.reverse.gsub(/([0-9]{3})/,"\\1,").gsub(/,$/,"").reverse.to_i, keywords: keywords  )
+%>   
+<h1 class="typography-display-1"><%== title %></h1>
+<div class="row grid">
+    <%= render partial: 'amz/search/store_reviews', collection: @store_reviews , as: :item   %> 
+</div> 
+<% if @store_reviews.respond_to?(:total_pages) %>
+    <div id="paginate">
+        <%= paginate @store_reviews, theme:  'material' %>   
+    </div>  
+<% end %>

@@ -1,0 +1,37 @@
+<title><%= title %></title>
+<meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no">
+<% if current_store.preferred_esi %>
+<esi:include src="/csrf_meta_tags.html" />
+<% else %>
+<%= csrf_meta_tags %> 
+<% end %>
+<% cache [ 'favicon' , current_store] do %>
+  <%= link_favicon %>
+<% end %>
+<%= csp_meta_tag %> 
+<%== meta_data_tags %>
+<%== hreflangs %>
+<%= canonical_tag(current_store.domain) %>
+<%= stylesheet_link_tag    "amz/application", media: "all", 'data-turbolinks-track': 'reload' %>
+<link as='style' href='https://fonts.googleapis.com/css?family=Libre+Baskerville&amp;display=swap' rel='preload'>
+<link href='https://fonts.googleapis.com/css?family=Libre+Baskerville&amp;display=swap' rel='stylesheet'>
+<link as='style' href='https://fonts.googleapis.com/css?family=Montserrat:400,700&amp;display=swap' rel='preload'>
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700&amp;display=swap' rel='stylesheet'>
+<!-- CSS -->
+<!-- Add Material font (Roboto) and Material icon as needed -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons&amp;display=swap" rel="stylesheet">
+<script type="application/ld+json">
+    {
+      "@type": "WebSite",
+      "name": "<%= current_store.name %>",
+      "url": "<%= origin %>",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "<%= "#{results_url}?keywords={query}" %>",
+        "query-input": "required name=query"
+      },
+      "@context": "http://schema.org"
+    }
+</script>
+<%= yield :head if content_for? :head %>
+<%= raw current_store.preferred_head_code %>  

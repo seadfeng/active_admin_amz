@@ -1,0 +1,15 @@
+<% 
+@body_id = 'taxon-page' 
+%>   
+<% if @store_reviews.any? %>
+<%= render partial: 'amz/shared/breadcrumbs' %> 
+<h1 class="page-title"><%= @taxon.name %></h1>
+<div class="row grid">
+    <%= render partial: 'amz/taxon/store_reviews', collection: @store_reviews , as: :item   %> 
+</div> 
+<% end %> 
+<% if @store_reviews.respond_to?(:total_pages) %>
+    <div id="paginate"> 
+        <%= paginate @store_reviews, theme:  'material' %>   
+    </div>   
+<% end %>

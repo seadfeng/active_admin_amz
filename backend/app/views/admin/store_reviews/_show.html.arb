@@ -1,0 +1,78 @@
+# panel t('active_admin.details', model: resource_class.to_s.titleize) do
+#     attributes_table_for resource do
+#         row :name   
+#         row :store   
+#         row :scanned  
+#     end
+# end 
+products = resource.products
+if products.any?
+i = 0
+panel t('active_admin.details', model:"#{Product.new.class.to_s.titleize} #{products.count}" ) do
+    table_for products do  
+        column :id do  |product|
+            link_to i+=1, admin_product_path(product)
+        end
+        column :asin_image do |product|
+            mini_image(product)
+        end
+        column :score do |product|
+            store_review_product =  product.store_review_products.find_by(store_review_id: resource.id )
+            store_review_product.score
+        end
+        column :best_value do |product|
+            store_review_product =  product.store_review_products.find_by(store_review_id: resource.id )
+            status_tag store_review_product.best_value
+        end
+        column :asin 
+        column :brand 
+        column :name   
+        column :scanned 
+        tag_column :locked  
+        tag_column :state  
+        column :actions do |product| 
+            # 
+            store_review_product =  product.store_review_products.find_by(store_review_id: resource.id )
+            store_review = store_review_product.store_review
+            
+            if store_review_product && store_review
+            
+                span do
+                    link_to t("active_admin.edit"), edit_admin_product_path(product), target: "_blank", :class => "member_link" if authorized?(ActiveAdmin::Auth::UPDATE, product)
+                end
+                span do 
+                    link_to t("active_admin.delete",default: "delete"),  admin_store_review_product_path(store_review_product ), :method => :delete, :"data-confirm" => I18n.t('active_admin.delete_confirmation', default: "Delete Confirmation?"), :class => "member_link delete_link" if authorized?(ActiveAdmin::Auth::DESTROY, store_review_product) 
+                end
+                if store_review.products.any?
+                    first = store_review.products.first 
+                    if first && first.id != product.id 
+                        span do
+                            link_to t("active_admin.best_value"), best_value_admin_store_review_store_review_product_path(resource,store_review_product), :class => "member_link" if authorized?(ActiveAdmin::Auth::UPDATE, store_review_product)
+                        end
+                    end
+                end
+            end
+            
+        end   
+    end
+end 
+end
+render "admin/store_reviews/new_product" 
+if resource.articles.any?
+    panel t('active_admin.articles') do
+        resource.articles.each do |article|
+            h1 do
+               auto_link  article
+            end
+            h2 do
+                article.title
+            end
+            # div do
+            #     raw article.description
+            # end
+            div do
+                article.published_at
+            end
+        end
+    end
+end

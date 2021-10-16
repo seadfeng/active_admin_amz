@@ -1,0 +1,28 @@
+<% content_for :sidebar do  %> 
+    <nav id="related-reviews-sidebar">
+        <h2 class="sidebar-name"><%= t('amz.store_review.related_reviews') %></h2> 
+        <ul class="sidebar-list"> 
+            <li>
+                <a class="nav-link" data-turbolinks="false" href="<%= "#related-reviews" %>"><%= t('amz.store_review.related_reviews_you_might_like', default: 'Related Reviews You Might Like') %></a> 
+            </li> 
+        </ul>
+    </nav>
+<% end %>
+<h2 class="related-reviews-title" id="related-reviews"><%= t('amz.store_review.related_reviews_you_might_like', default: 'Related Reviews You Might Like') %></h2> 
+<div class="row related-review">
+    <% featured_list.each do |item| %>
+        <% cache ['featured_list',item ] do %>
+            <div class="col-6 col-md-4 col-lg-3 mb-3">
+                    <div class="card flex-column">
+                        <div class="card-image">
+                            <a href="<%= seo_url(item) %>"><%= product_image(item, alt: item.seo_name, class: "lazy", "data-placeholder-src": asset_path("amz/lazy_loader.svg")) %></a>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="h4"><a href="<%= seo_url(item) %>"><%= item.seo_name %></a></h3>
+                        </div> 
+                    </div>
+            </div>
+        <% end %>  
+    <% end %>  
+</div>
+

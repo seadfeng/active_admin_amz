@@ -1,0 +1,14 @@
+<div class="card" id="accordion-<%= item_counter + 1 %>">
+    <div class="card-header">
+        <h3 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse-<%= item_counter %>" aria-expanded="true" aria-controls="collapse-<%= item_counter %>">
+                <%= item[:name] %>
+            </button>
+        </h3>
+    </div> 
+    <div id="collapse-<%= item_counter %>" class="collapse<%= item_counter == 0 ? " show" : "" %>" aria-labelledby="heading-<%= item_counter %>" data-parent="#accordion">
+      <div class="card-body">
+        <%= sanitize item[:content] %>
+      </div>
+    </div> 
+</div>
