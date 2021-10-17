@@ -1,3 +1,4 @@
+if defined?(ActiveAdmin)  &&  Amz::Article.table_exists? 
 ActiveAdmin.register Amz::Article, as: "Article" do
     init_controller
     belongs_to :store_review, optional: true
@@ -116,4 +117,5 @@ ActiveAdmin.register Amz::Article, as: "Article" do
     end 
 
     # EOF member_action
+end
 end
